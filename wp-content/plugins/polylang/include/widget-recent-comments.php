@@ -1,12 +1,13 @@
 <?php
 
-if(!class_exists('WP_Widget_Recent_Comments')){
+if ( ! class_exists( 'WP_Widget_Recent_Comments' ) ) {
 	require_once( ABSPATH . '/wp-includes/default-widgets.php' );
 }
 
 /*
+ * backward compatibility with WP < 4.4
  * obliged to rewrite the whole functionnality to have a language dependant cache key
- * code base is WP 3.9.1
+ * code base is WP 4.2
  *
  * @since 1.5
  */
@@ -26,7 +27,7 @@ class PLL_Widget_Recent_Comments extends WP_Widget_Recent_Comments {
 
 		$cache = array();
 		if ( ! $this->is_preview() ) {
-			$cache = wp_cache_get('widget_recent_comments', 'widget');
+			$cache = wp_cache_get( 'widget_recent_comments', 'widget' );
 		}
 		if ( ! is_array( $cache ) ) {
 			$cache = array();
@@ -36,8 +37,8 @@ class PLL_Widget_Recent_Comments extends WP_Widget_Recent_Comments {
 			$args['widget_id'] = $this->id;
 
 		$lang = pll_current_language(); #added
-		if ( isset( $cache[ $args['widget_id'] ] [$lang] ) ) { #modified#
-			echo $cache[ $args['widget_id'] ] [$lang]; #modified#
+		if ( isset( $cache[ $args['widget_id'] ][ $lang ] ) ) { #modified#
+			echo $cache[ $args['widget_id'] ][ $lang ]; #modified#
 			return;
 		}
 
@@ -57,7 +58,7 @@ class PLL_Widget_Recent_Comments extends WP_Widget_Recent_Comments {
 		 *
 		 * @since 3.4.0
 		 *
-		 * @see get_comments()
+		 * @see WP_Comment_Query::query() for information on accepted arguments.
 		 *
 		 * @param array $comment_args An array of arguments used to retrieve the recent comments.
 		 */
@@ -78,8 +79,14 @@ class PLL_Widget_Recent_Comments extends WP_Widget_Recent_Comments {
 			$post_ids = array_unique( wp_list_pluck( $comments, 'comment_post_ID' ) );
 			_prime_post_caches( $post_ids, strpos( get_option( 'permalink_structure' ), '%category%' ), false );
 
-			foreach ( (array) $comments as $comment) {
-				$output .=  '<li class="recentcomments">' . /* translators: comments widget: 1: comment author, 2: post link */ sprintf(_x('%1$s on %2$s', 'widgets'), get_comment_author_link(), '<a href="' . esc_url( get_comment_link($comment->comment_ID) ) . '">' . get_the_title($comment->comment_post_ID) . '</a>') . '</li>';
+			foreach ( (array) $comments as $comment ) {
+				$output .= '<li class="recentcomments">';
+				/* translators: comments widget: 1: comment author, 2: post link */
+				$output .= sprintf( _x( '%1$s on %2$s', 'widgets' ),
+					'<span class="comment-author-link">' . get_comment_author_link() . '</span>',
+					'<a href="' . esc_url( get_comment_link( $comment->comment_ID ) ) . '">' . get_the_title( $comment->comment_post_ID ) . '</a>'
+				);
+				$output .= '</li>';
 			}
 		}
 		$output .= '</ul>';
@@ -88,19 +95,8 @@ class PLL_Widget_Recent_Comments extends WP_Widget_Recent_Comments {
 		echo $output;
 
 		if ( ! $this->is_preview() ) {
-			$cache[ $args['widget_id'] ] [$lang] = $output; #modified#
+			$cache[ $args['widget_id'] ][ $lang ] = $output; #modified#
 			wp_cache_set( 'widget_recent_comments', $cache, 'widget' );
 		}
-	}
-	
-	/*
-	 * backward compatibility with WP < 3.9
-	 *
-	 * @since 1.5
-	 *
-	 * @return bool
-	 */
-	function is_preview() {
-		return version_compare($GLOBALS['wp_version'], '3.9', '<') ? false : parent::is_preview();
 	}
 }
