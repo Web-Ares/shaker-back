@@ -13,9 +13,9 @@
 </head>
 
 <body <?php body_class(); ?>>
-<?php //if (is_page() || is_single() || is_singular() || is_404()) {
-//    the_post();
-//} ?>
+<?php if (is_page() || is_single() || is_singular() || is_404()) {
+    the_post();
+} ?>
 <!--site-->
 <div class="site">
 

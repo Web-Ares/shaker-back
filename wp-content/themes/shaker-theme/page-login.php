@@ -24,10 +24,6 @@ get_header('second_fix');
 
 	</div>
 	<!--/client-login-->
-	<?php
-		echo do_shortcode('[show_clients]');
-		echo do_shortcode('[contact_us_link]');
-	?>
 
 </div>
 <!-- /site__content -->
