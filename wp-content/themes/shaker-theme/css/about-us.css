@@ -1,0 +1,224 @@
+
+/*-----------site------------*/
+.site__header_about-us{
+    background: rgba(237,237,237,1);
+}
+.site__header_about-us:after {
+    width: 100%;
+    height: 100%;
+    right: 0;
+    left: auto;
+    top: auto;
+    bottom: 0;
+    background: url(../img/about-us/about-header-bg2.jpg) 0 100% no-repeat;
+    background-size: 100%;
+    background-position: bottom right;
+}
+.site__header_about-us .header-title {
+    width: 185px;
+}
+/*-----------/site------------*/
+
+/*----------about-us--------*/
+.about-us {
+    padding: 44px 0 53px;
+}
+.about-us__top {
+    margin: 0 0 38px 3px;
+}
+.about-us__top h2 p {
+    font-size: 23px;
+    line-height: 27px;
+    color: #333;
+    margin: 0 1px -2px;
+    font-weight: 300;
+    letter-spacing: 0.4px;
+}
+.about-us__top h2 p strong {
+    display: block;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+.about-us__top-inner {
+    overflow: hidden;
+}
+.about-us__top-inner div {
+    padding-top: 33px;
+}
+.about-us__top-inner div p {
+    display: block;
+    margin: 0 0 20px 0;
+}
+.about-us__top-inner div p ~ ul {
+    margin-top: -15px;
+}
+.about-us__top-inner div ul {
+    font-size: 13px;
+    line-height: 17px;
+    padding-left: 20px;
+    list-style: disc;
+}
+.about-us__top-inner img {
+    display: block;
+    margin: 0 auto;
+    width: 70%;
+    height: 70%;
+}
+.about-us__advantages > p {
+    display: block;
+    font-size: 21px;
+    line-height: 26px;
+    color: #333;
+    padding: 0 15px 0 2px;
+    letter-spacing: 0.3px;
+    margin-bottom: 27px;
+}
+.about-us__advantages-list {
+    overflow: hidden;
+}
+.about-us__advantages-list li {
+    margin-bottom: 20px;
+}
+.about-us__advantages-list h4 {
+    display: block;
+    color: #d71f1f;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+.banner {
+    margin-bottom: 3%;
+    position: relative;
+    text-align: center;
+    font-size: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+.banner-img {
+    width: 1024px;
+    max-width: 100%;
+    opacity: 0.4;
+}
+.banner-text {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    padding: 0 calc((100% - 920px) / 2);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #fff;
+}
+.banner-text p {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+}
+/*----------/about-us--------*/
+
+@media (min-width: 768px) {
+
+    /*----------about-us--------*/
+    .about-us {
+        padding: 44px 0 53px;
+    }
+    .about-us__top h2 p {
+        font-size: 26px;
+        line-height: 29px;
+    }
+    .about-us__top-inner div {
+        float: left;
+        width: 49.5%;
+    }
+    .about-us__top-inner div ul {
+        line-height: 17px;
+    }
+    .about-us__top-inner img {
+        float: right;
+        display: block;
+        width: 44.5%;
+        margin: 17px  0 0;
+    }
+    .about-us__advantages > p {
+        display: block;
+        font-size: 21px;
+        line-height: 26px;
+    }
+    .about-us__advantages-list {
+        width: 48%;
+        float: left;
+    }
+    .about-us__advantages-list:not(:first-of-type) {
+        margin-left: 2%;
+    }
+    /*----------/about-us--------*/
+    .banner:before,
+    .banner:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: calc((100% - 1024px) / 2);
+        height: 100%;
+        background-color: #333;
+        z-index: 1;
+    }
+    .banner:before {
+        left: 0;
+        -webkit-box-shadow: 10px 0 100px 70px rgba(51, 51, 51, 1);
+        -moz-box-shadow:    10px 0 100px 70px rgba(51, 51, 51, 1);
+        box-shadow:         10px 0 100px 70px rgba(51, 51, 51, 1);
+    }
+    .banner:after {
+        right: 0;
+        -webkit-box-shadow: -10px 0 100px 70px rgba(51, 51, 51, 1);
+        -moz-box-shadow:    -10px 0 100px 70px rgba(51, 51, 51, 1);
+        box-shadow:         -10px 0 100px 70px rgba(51, 51, 51, 1);
+    }
+    .banner-text p {
+        font-size: 28px;
+        line-height: 40px;
+    }
+}
+@media (min-width: 1024px) {
+
+    /*-----------site------------*/
+    .site__header_about-us{
+        min-height: 332px;
+    }
+    .site__header_about-us .header-title {
+        width: 335px;
+    }
+    /*-----------/site------------*/
+    .about-us__top-inner div ul {
+        line-height: 20px;
+    }
+}
+@media (min-width: 1200px) {
+
+    /*-----------site------------*/
+    .site__header_about-us .header-title {
+        width: 320px;
+    }
+    /*-----------/site------------*/
+
+    /*----------about-us--------*/
+    .about-us {
+        padding: 44px 0 53px;
+    }
+    .about-us__top h2 p {
+        font-size: 27px;
+        line-height: 31px;
+    }
+    .about-us__top-inner img {
+        margin: 0 7px 0 0;
+        width: auto;
+        height: auto;
+    }
+    .about-us__advantages > p {
+        font-size: 25px;
+        line-height: 33px;
+        padding: 0 15px 0 4px;
+        margin-bottom: 68px;
+    }
+    /*----------/about-us--------*/
+
+}
