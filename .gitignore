@@ -2,4 +2,5 @@
 dist/
 /wp-config.php
 /.htaccess
+/wp-content/themes/shaker
 .idea
