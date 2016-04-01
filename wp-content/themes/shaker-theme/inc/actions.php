@@ -61,7 +61,7 @@ function theme_setup()
     add_theme_support('post-thumbnails');
 //    add_image_size('298x252', 298, 252, array('center', 'top'));
 //    add_image_size('341x341', 341, 341, true);
-//    add_image_size('tx170', 170, 100);
+    add_image_size('tx170', 170, 100);
 //    add_image_size('447x488', 447, 488, true);
 }
 
@@ -209,5 +209,7 @@ $result = add_role( 'client', __(
         'publish_posts' => false, // Allows the user to publish, otherwise posts stays in draft mode
 
     ) );
+
+
 
 ?>
