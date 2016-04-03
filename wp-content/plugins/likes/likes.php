@@ -327,7 +327,7 @@ class SP_Plugin
             'Page Likes users',
             'Likes users',
             'manage_options',
-            'wp_list_table_class',
+            'likes_users',
             [$this, 'plugin_settings_page']
         );
 
@@ -335,6 +335,40 @@ class SP_Plugin
 
     }
 
+    public function getUsers(){
+        $users=' <option value="">Choose User</option>';
+        $args = array(
+            'blog_id'      => $GLOBALS['blog_id'],
+            'role'         => '',
+            'role__in'     => array(),
+            'role__not_in' => array(),
+            'meta_key'     => '',
+            'meta_value'   => '',
+            'meta_compare' => '',
+            'meta_query'   => array(),
+            'include'      => array(),
+            'exclude'      => array(),
+            'orderby'      => 'login',
+            'order'        => 'ASC',
+            'offset'       => '',
+            'search'       => '',
+            'search_columns' => array(),
+            'number'       => '',
+            'paged'        => 1,
+            'count_total'  => false,
+            'fields'       => 'all',
+            'who'          => '',
+            'has_published_posts' => null,
+            'date_query'   => array() // смотрите WP_Date_Query
+        );
+        $users_list = get_users( $args );
+        var_dump($users_list);
+        foreach( $users_list as $user ){
+
+            $users .='<option value="'.$user->ID.'">'.$user->display_name.'</option>';
+        }
+        return $users;
+    }
 
     /**
      * Plugin settings page
@@ -348,6 +382,12 @@ class SP_Plugin
             <div id="poststuff">
                 <div id="post-body" class="metabox-holder">
                     <div id="post-body-content">
+                        <form name="users" action="/wp-admin/admin.php" method="get">
+                            <input type="hidden" name="page" value="likes_users">
+                            <select name="user_id" id="" onchange="submit();">
+                               <?php echo $this->getUsers(); ?>
+                            </select>
+                        </form>
                         <div class="meta-box-sortables ui-sortable">
                             <form method="post">
                                 <?php

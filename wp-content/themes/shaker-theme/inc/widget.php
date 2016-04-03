@@ -30,6 +30,13 @@ function get_counts_Likes($user_id){
 }
 
 
+function get_counts_Curations($user_id){
+    global $wpdb;
+    $table_name = $wpdb->prefix . "users_curations";
+    $rows = $wpdb->get_results("select count(id) as itogo from ".$table_name." WHERE user_id = ".$user_id);
+    return $rows[0]->itogo;
+}
+
 
 function new_modify_user_table( $column ) {
     $column['likes'] = 'Likes';
@@ -42,10 +49,10 @@ add_filter( 'manage_users_columns', 'new_modify_user_table' );
 function new_modify_user_table_row( $val, $column_name, $user_id ) {
     switch ($column_name) {
         case 'likes' :
-            return '<a href="/wp-admin/admin.php?page=wp_list_table_class&user_id='.$user_id.'">'.get_counts_Likes($user_id).'</a>';
+            return '<a href="/wp-admin/admin.php?page=likes_users&user_id='.$user_id.'">'.get_counts_Likes($user_id).'</a>';
             break;
         case 'curation' :
-            return '1';
+            return '<a href="/wp-admin/admin.php?page=curation_users&user_id='.$user_id.'">'.get_counts_Curations($user_id).'</a>';
             break;
         default:
     }
