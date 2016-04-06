@@ -20,6 +20,16 @@ class Curation_Plugin
     public $customers_obj;
 
     /**
+     * @var integer
+     */
+    static $first_user;
+
+    /**
+     * @var array
+     */
+    static $users;
+
+    /**
      * @var array
      */
     static $users_categories = [];
@@ -125,11 +135,11 @@ class Curation_Plugin
     /**
      * @return string
      */
-    public static function getUsers(){
-        $users=' <option value="">Choose User</option>';
+    public static function setUsers(){
+        self::$users=' <option value="">Choose User</option>';
         $args = array(
             'blog_id'      => $GLOBALS['blog_id'],
-            'role'         => '',
+            'role'         => 'client',
             'role__in'     => array(),
             'role__not_in' => array(),
             'meta_key'     => '',
@@ -153,10 +163,15 @@ class Curation_Plugin
         );
         $users_list = get_users( $args );
         foreach( $users_list as $user ){
-
-            $users .='<option value="'.$user->ID.'">'.$user->display_name.'</option>';
+            if(empty(self::$first_user)){
+                self::$first_user = $user->ID;
+            }
+            self::$users .='<option value="'.$user->ID.'">'.$user->display_name.'</option>';
         }
-        return $users;
+    }
+
+    public static function getUsers(){
+        return self::$users;
     }
 
     /**

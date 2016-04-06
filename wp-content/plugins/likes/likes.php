@@ -355,7 +355,7 @@ class SP_Plugin
         $users=' <option value="">Choose User</option>';
         $args = array(
             'blog_id'      => $GLOBALS['blog_id'],
-            'role'         => '',
+            'role'         => 'client',
             'role__in'     => array(),
             'role__not_in' => array(),
             'meta_key'     => '',
