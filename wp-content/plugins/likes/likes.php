@@ -90,7 +90,6 @@ class Likes_List extends WP_List_Table
         return $wpdb->get_var($sql);
     }
 
-
     /** Text displayed when no customer data is available */
     public function no_items()
     {
@@ -325,6 +324,25 @@ class SP_Plugin
     }
 
     /**
+     * @param $user_id
+     * @param $post_id
+     * @param $image_id
+     * @param $date
+     */
+    public static function insert_like($post_id, $image_id, $date){
+        global $wpdb;
+        $current_user = wp_get_current_user();
+        if ( 0 == $current_user->ID ) {
+            die('{"result":false}');
+            // Не авторизован.
+        } else {
+            $user_id = $current_user->ID;
+            $wpdb->insert( $wpdb->prefix . 'likes', array( 'post_id' => $post_id, 'user_id' => $user_id, 'image_id'=> $image_id, 'date'=>$date), array( '%d', '%d', '%d', '%d' ) );
+
+        }
+    }
+
+    /**
      * @param $status
      * @param $option
      * @param $value
@@ -453,6 +471,7 @@ class SP_Plugin
 
 add_action('plugins_loaded', function () {
     SP_Plugin::get_instance();
+    SP_Plugin::insert_like(37, 11, 201634455);
 });
 
 ?>
