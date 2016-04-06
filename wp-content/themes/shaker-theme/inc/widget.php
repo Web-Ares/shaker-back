@@ -10,12 +10,12 @@ function add_extra_members( $user )
 <table class="form-table">
     <tr>
         <th><label for="facebook_profile">Favorites images</label></th>
-        <td><a href="#"><?php echo esc_attr(get_counts_Likes( $user->ID )); ?></a></td>
+        <td><a href="/wp-admin/admin.php?page=likes_users&user_id=<?=$user->ID; ?>"><?php echo esc_attr(get_counts_Likes( $user->ID )); ?></a></td>
     </tr>
 
     <tr>
         <th><label for="twitter_profile">My Curations</label></th>
-        <td><a href="/"><?php echo esc_attr(get_the_author_meta( 'my_curations', $user->ID )); ?></a></td>
+        <td><a href="/wp-admin/admin.php?page=curation_users&user_id=<?=$user->ID; ?>"><?php echo esc_attr(get_counts_Curations($user->ID)); ?></a></td>
     </tr>
 
 </table>

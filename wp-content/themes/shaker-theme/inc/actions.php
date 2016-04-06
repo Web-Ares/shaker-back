@@ -2,7 +2,7 @@
 //required actions
 remove_action('wp_head', 'rsd_link');
 remove_action('wp_head', 'wp_generator');
-add_filter('xmlrpc_enabled','__return_false');
+add_filter('xmlrpc_enabled', '__return_false');
 remove_action('wp_head', 'wlwmanifest_link');
 // close required actions
 
@@ -12,47 +12,49 @@ remove_action('wp_head', 'feed_links', 2);
 remove_action('wp_head', 'feed_links_extra', 3);
 remove_action('wp_head', 'rel_canonical');
 remove_action('wp_head', 'signuppageheaders');
-remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
-remove_action( 'wp_head', 'wp_oembed_add_host_js' );
-add_filter( 'wpcf7_load_js', '__return_false' );
-add_filter( 'wpcf7_load_css', '__return_false' );
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
+remove_action('wp_head', 'wp_oembed_add_host_js');
+add_filter('wpcf7_load_js', '__return_false');
+add_filter('wpcf7_load_css', '__return_false');
 // Отключаем сам REST API
 add_filter('rest_enabled', '__return_false');
 
 // Отключаем фильтры REST API
-remove_action( 'xmlrpc_rsd_apis',            'rest_output_rsd' );
-remove_action( 'wp_head',                    'rest_output_link_wp_head', 10, 0 );
-remove_action( 'template_redirect',          'rest_output_link_header', 11, 0 );
-remove_action( 'auth_cookie_malformed',      'rest_cookie_collect_status' );
-remove_action( 'auth_cookie_expired',        'rest_cookie_collect_status' );
-remove_action( 'auth_cookie_bad_username',   'rest_cookie_collect_status' );
-remove_action( 'auth_cookie_bad_hash',       'rest_cookie_collect_status' );
-remove_action( 'auth_cookie_valid',          'rest_cookie_collect_status' );
-remove_filter( 'rest_authentication_errors', 'rest_cookie_check_errors', 100 );
+remove_action('xmlrpc_rsd_apis', 'rest_output_rsd');
+remove_action('wp_head', 'rest_output_link_wp_head', 10, 0);
+remove_action('template_redirect', 'rest_output_link_header', 11, 0);
+remove_action('auth_cookie_malformed', 'rest_cookie_collect_status');
+remove_action('auth_cookie_expired', 'rest_cookie_collect_status');
+remove_action('auth_cookie_bad_username', 'rest_cookie_collect_status');
+remove_action('auth_cookie_bad_hash', 'rest_cookie_collect_status');
+remove_action('auth_cookie_valid', 'rest_cookie_collect_status');
+remove_filter('rest_authentication_errors', 'rest_cookie_check_errors', 100);
 
 // Отключаем события REST API
-remove_action( 'init',          'rest_api_init' );
-remove_action( 'rest_api_init', 'rest_api_default_filters', 10, 1 );
-remove_action( 'parse_request', 'rest_api_loaded' );
+remove_action('init', 'rest_api_init');
+remove_action('rest_api_init', 'rest_api_default_filters', 10, 1);
+remove_action('parse_request', 'rest_api_loaded');
 
 // Отключаем Embeds связанные с REST API
-remove_action( 'rest_api_init',          'wp_oembed_register_route'              );
-remove_filter( 'rest_pre_serve_request', '_oembed_rest_pre_serve_request', 10, 4 );
+remove_action('rest_api_init', 'wp_oembed_register_route');
+remove_filter('rest_pre_serve_request', '_oembed_rest_pre_serve_request', 10, 4);
 
-remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+remove_action('wp_head', 'wp_oembed_add_discovery_links');
 // если собираетесь выводить вставки из других сайтов на своем, то закомментируйте след. строку.
-remove_action( 'wp_head',                'wp_oembed_add_host_js'                 );
+remove_action('wp_head', 'wp_oembed_add_host_js');
 add_filter('the_content', 'do_shortcode');
 add_filter('wpcf7_form_elements', 'do_shortcode');
 
 if (function_exists('acf_add_options_page')) {
     acf_add_options_page();
 }
-function allow_svg_upload_mimes( $mimes ) {
+function allow_svg_upload_mimes($mimes)
+{
     $mimes['svg'] = 'image/svg+xml';
     return $mimes;
 }
-add_filter( 'upload_mimes', 'allow_svg_upload_mimes' );
+
+add_filter('upload_mimes', 'allow_svg_upload_mimes');
 
 add_action('after_setup_theme', 'theme_setup');
 function theme_setup()
@@ -152,11 +154,12 @@ function add_files()
 //    add_post_type_support('page', 'excerpt');
 //}
 
-function get_temp_ID($tmp){
+function get_temp_ID($tmp)
+{
 
     $the_query = new WP_Query(array(
         'posts_per_page' => 1,
-        'post_type'  => 'page',
+        'post_type' => 'page',
         'meta_query' => array(
             array(
                 'key' => '_wp_page_template',
@@ -165,26 +168,28 @@ function get_temp_ID($tmp){
         )
     ));
 
-    if($the_query->have_posts()){
+    if ($the_query->have_posts()) {
         while ($the_query->have_posts()) :
             $the_query->the_post();
             $pid = get_the_ID();
             wp_reset_query();
             return $pid;
         endwhile;
-    }else{
+    } else {
         wp_reset_query();
         return '#';
     }
 }
 
-function get_login_url(){
-     $temp_id=get_temp_ID('page-login.php');
-     return $permalink = get_permalink($temp_id);
+function get_login_url()
+{
+    $temp_id = get_temp_ID('page-login.php');
+    return $permalink = get_permalink($temp_id);
     wp_reset_query();
 }
 
-function ssd_admin_clean_up(){
+function ssd_admin_clean_up()
+{
 //    remove_menu_page( 'edit.php?post_type=post');
 //    remove_menu_page( 'edit-comments.php');
 ////    remove_menu_page( 'wpcf7');
@@ -192,12 +197,13 @@ function ssd_admin_clean_up(){
 //    remove_menu_page( 'acf');
 //    remove_menu_page( 'edit.php?post_type=acf-field-group' );
 }
+
 add_action('admin_menu', 'ssd_admin_clean_up');
 
 // Add a custom user role
 
-$result = add_role( 'client', __(
-    'Client' ),
+$result = add_role('client', __(
+    'Client'),
     array(
 
         'read' => true, // true allows this capability
@@ -208,8 +214,23 @@ $result = add_role( 'client', __(
         'manage_categories' => false, // Allows user to manage post categories
         'publish_posts' => false, // Allows the user to publish, otherwise posts stays in draft mode
 
-    ) );
+    ));
 
+add_action('user_register', 'myplugin_registration_save', 10, 1);
 
+function myplugin_registration_save($array)
+{
 
+//    var_dump($array);
+//    exit();
+
+}
+
+//
+//add_filter( 'user_meta_pre_user_register', 'user_meta_pre_user_register_function' );
+//function user_meta_pre_user_register_function( $userData )
+//{
+//    var_dump($userData);
+//    exit();
+//}
 ?>
