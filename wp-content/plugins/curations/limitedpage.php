@@ -8,16 +8,9 @@
 ?>
 
 <div class="wrap">
-    <h2>Curation Users (<?php $user_id = esc_sql($_REQUEST['user_id']); $user = get_user_by('id', $user_id); echo $user->display_name; ?>)</h2>
+    <h2>Limited Images for all Users</h2>
 
-    <form name="users" action="/wp-admin/admin.php" method="get">
-        <input type="hidden" name="page" value="curation_users">
-        <select name="user_id" id="" onchange="submit();">
-            <?php echo Curation_Plugin::getUsers(); ?>
-        </select>
-    </form>
-
-    <div id="curations" data-user_id = "<?php echo esc_sql($_REQUEST['user_id']);?>" data-action="<?php echo admin_url('admin-ajax.php');?>">
+    <div id="curations" data-user_id = "0" data-action="<?php echo admin_url('admin-ajax.php');?>">
         <div id="post-body" class="metabox-holder">
             <div id="post-body-content">
                 <div class="categories">
@@ -57,9 +50,7 @@
                         <h2>User categories</h2>
 
                         <select size="3" multiple class="user_categories" name="user_categories[]">
-                            <?php
-
-                            echo  Curation_Plugin::getUserCategories($user_id);?>
+                            <?php echo Curation_Plugin::getUserCategories($user_id);?>
                         </select>
                     </div>
 

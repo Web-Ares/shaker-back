@@ -12,7 +12,9 @@ if (!class_exists('WP_List_Table')) {
 class Likes_List extends WP_List_Table
 {
 
-    /** Class constructor */
+    /**
+     * Likes_List constructor.
+     */
     public function __construct()
     {
 
@@ -302,19 +304,32 @@ class SP_Plugin
 {
 
     // class instance
+    /**
+     * @var object
+     */
     static $instance;
 
     // customer WP_List_Table object
+    /**
+     * @var object
+     */
     public $customers_obj;
 
-    // class constructor
+    /**
+     * SP_Plugin constructor.
+     */
     public function __construct()
     {
         add_filter('set-screen-option', [__CLASS__, 'set_screen'], 10, 3);
         add_action('admin_menu', [$this, 'plugin_menu']);
     }
 
-
+    /**
+     * @param $status
+     * @param $option
+     * @param $value
+     * @return mixed
+     */
     public static function set_screen($status, $option, $value)
     {
         return $value;
@@ -334,6 +349,7 @@ class SP_Plugin
         add_action("load-$hook", [$this, 'screen_option']);
 
     }
+
 
     public function getUsers(){
         $users=' <option value="">Choose User</option>';

@@ -9,10 +9,14 @@ Description: Curations list.
 class Curation_Plugin
 {
 
-    // class instance
+    /**
+     * @var object
+     */
     static $instance;
 
-    // customer WP_List_Table object
+    /**
+     * @var object
+     */
     public $customers_obj;
 
     /**
@@ -20,9 +24,14 @@ class Curation_Plugin
      */
     static $users_categories = [];
 
+    /**
+     * @var array
+     */
     static $users_photos = [];
 
-    // class constructor
+    /**
+     * Curation_Plugin constructor.
+     */
     public function __construct()
     {
         add_action('init', 'register_script');
@@ -36,12 +45,20 @@ class Curation_Plugin
         add_action('admin_menu', [$this, 'plugin_menu']);
     }
 
-
+    /**
+     * @param $status
+     * @param $option
+     * @param $value
+     * @return mixed
+     */
     public static function set_screen($status, $option, $value)
     {
         return $value;
     }
 
+    /**
+     * hooks
+     */
     public function plugin_menu()
     {
 
@@ -50,22 +67,42 @@ class Curation_Plugin
             'Curation users',
             'manage_options',
             'curation_users',
-            [$this, 'plugin_settings_page']
+            [$this, 'plugin_curations_page']
         );
 
         add_action("load-$hook", [$this, 'screen_option']);
+
+        $hook2 = add_menu_page(
+            'Limited',
+            'Limited users',
+            'manage_options',
+            'limited_users',
+            [$this, 'plugin_limited_page']
+        );
+
+        add_action("load-$hook2", [$this, 'screen_option']);
 
     }
 
 
     /**
-     * Plugin settings page
+     * Plugin curations page
      */
-    public function plugin_settings_page()
+    public function plugin_curations_page()
     {
         wp_enqueue_style('curations_style');
         wp_enqueue_script('select_jquery');
         require_once("curpage.php");
+    }
+
+    /**
+     * Plugin limited page
+     */
+    public function plugin_limited_page()
+    {
+        wp_enqueue_style('curations_style');
+        wp_enqueue_script('select_jquery');
+        require_once("limitedpage.php");
     }
 
     /**
@@ -85,6 +122,9 @@ class Curation_Plugin
         return $list;
     }
 
+    /**
+     * @return string
+     */
     public static function getUsers(){
         $users=' <option value="">Choose User</option>';
         $args = array(
@@ -119,12 +159,20 @@ class Curation_Plugin
         return $users;
     }
 
+    /**
+     * @param $post_id
+     * @param $cat_id
+     */
     public static function changePostCategories($post_id, $cat_id)
     {
         global $wpdb;
         $result = $wpdb->update($wpdb->prefix . 'users_curations', array('category_id' => $cat_id), array('post_id' => $post_id), array('%d'), array('%d'));
     }
 
+    /**
+     * @param int $hide
+     * @return string
+     */
     public static function get_Categories($hide = 1)
     {
         $list = '';
@@ -141,6 +189,10 @@ class Curation_Plugin
         return $list;
     }
 
+    /**
+     * @param $user_id
+     * @return string
+     */
     public static function getUserCategories($user_id)
     {
         global $wpdb;
@@ -161,6 +213,9 @@ class Curation_Plugin
         return $list;
     }
 
+    /**
+     * @param $post_id
+     */
     public static function getPostCategories($post_id)
     {
         $args = array();
@@ -183,7 +238,10 @@ class Curation_Plugin
 
     }
 
-    public static function getUserPhotos($cat_id = false, $user_id)
+    /**
+     * @param bool $cat_id
+     */
+    public static function getUserPhotos($cat_id = false)
     {
         $list = '';
         foreach (self::$users_photos as $post) {
@@ -192,7 +250,9 @@ class Curation_Plugin
         echo $list;
     }
 
-    /** Singleton instance */
+    /**
+     * @return Curation_Plugin|object
+     */
     public static function get_instance()
     {
         if (!isset(self::$instance)) {
@@ -204,13 +264,16 @@ class Curation_Plugin
 
 }
 
-
+/**
+ * action
+ */
 add_action('plugins_loaded', function () {
     Curation_Plugin::get_instance();
 });
 
 
 add_action('wp_ajax_subcategories', 'getSubcategories');
+
 
 function getSubcategories()
 {
@@ -425,6 +488,7 @@ function getDeletePost()
     }
     die(json_encode($list));
 }
+
 add_action('wp_ajax_add_user_photos', 'addUserPhotos');
 
 function addUserPhotos()
@@ -444,31 +508,4 @@ function addUserPhotos()
 
 }
 
-//
-//function image_updated_change_categories($post_id)
-//{
-//
-//    // Если это ревизия, то не отправляем письмо
-//    if (wp_is_post_revision($post_id))
-//        return;
-//
-//    $args = array();
-//    $defaults = array('fields' => 'ids');
-//    $args = wp_parse_args($args, $defaults);
-//
-//    $auth_cats = wp_get_object_terms($post_id, 'author_categories', $args);
-//    $img_cats = wp_get_object_terms($post_id, 'img_categories', $args);
-//
-//
-//    $result = array_merge($auth_cats, $img_cats);
-//    print_r($result);
-//
-//    foreach ($result as $val) {
-//        Curation_Plugin::changePostCategories($post_id, $val);
-//    }
-//
-//
-//}
-//
-//add_action('save_post', 'image_updated_change_categories');
 ?>
