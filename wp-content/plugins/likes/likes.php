@@ -324,8 +324,8 @@ class SP_Plugin
     {
 
         $hook = add_menu_page(
-            'Page Likes users',
-            'Likes users',
+            'Favorites images',
+            'Favorites images',
             'manage_options',
             'likes_users',
             [$this, 'plugin_settings_page']
@@ -362,7 +362,6 @@ class SP_Plugin
             'date_query'   => array() // смотрите WP_Date_Query
         );
         $users_list = get_users( $args );
-        var_dump($users_list);
         foreach( $users_list as $user ){
 
             $users .='<option value="'.$user->ID.'">'.$user->display_name.'</option>';
@@ -377,7 +376,7 @@ class SP_Plugin
     {
         ?>
         <div class="wrap">
-            <h2>Likes Users</h2>
+            <h2>Favorites images</h2>
 
             <div id="poststuff">
                 <div id="post-body" class="metabox-holder">
