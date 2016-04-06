@@ -84,6 +84,7 @@ function add_files()
     );
     wp_enqueue_style('style-name', get_stylesheet_uri());
 
+    wp_enqueue_style('style-swiper', TEMPLATEURI.'/css/swiper.min.css');
     wp_enqueue_style('style-index', TEMPLATEURI.'/css/index.css');
 
     wp_enqueue_script('script-swiper', TEMPLATEURI . '/js/vendors/swiper.jquery.min.js', array(), '1.0.0', true);

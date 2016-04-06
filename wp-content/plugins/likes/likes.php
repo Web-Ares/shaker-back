@@ -471,7 +471,7 @@ class SP_Plugin
 
 add_action('plugins_loaded', function () {
     SP_Plugin::get_instance();
-    SP_Plugin::insert_like(37, 11, 201634455);
+//    SP_Plugin::insert_like(37, 11, 201634455);
 });
 
 ?>
