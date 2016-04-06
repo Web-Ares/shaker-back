@@ -14,17 +14,12 @@ get_header();
 
             <!--logo-->
             <h1 class="logo logo_index">
-                <img class="logo__index" src="img/logo-index.png" width="406" height="230" alt="Shaker Wiener">
-                <img class="logo__index-black" src="img/logo-index-black.png" width="406" height="230" alt="Shaker Wiener">
+                <img class="logo__index" src="<?php echo TEMPLATEURI;?>/img/logo-index.png" width="406" height="230" alt="Shaker Wiener">
+                <img class="logo__index-black" src="<?php echo TEMPLATEURI;?>/img/logo-index-black.png" width="406" height="230" alt="Shaker Wiener">
             </h1>
             <!-- /logo -->
 
-            <!-- language -->
-            <div class="language">
-                <span>En</span>
-                <a href="#">De</a>
-            </div>
-            <!-- /language -->
+            <?php echo switch_languages();?>
 
             <!-- site__menu-btn -->
             <div class="site__menu">
@@ -58,33 +53,12 @@ get_header();
     <div class="site__content full-height">
 
         <!-- home-slider -->
-        <div class="home-slider">
-
-            <!-- Slider main container -->
-            <div class="swiper-container">
-
-                <!-- Additional required wrapper -->
-                <div class="swiper-wrapper">
-
-                    <!-- Slides -->
-                    <div class="home-slider__item swiper-slide" style="background-image: url(pic/index-slide1.jpg)"></div>
-                    <div class="home-slider__item swiper-slide" style="background-image: url(pic/index-slide2.jpg)"></div>
-                    <div class="home-slider__item swiper-slide" style="background-image: url(pic/index-slide3.jpg)"></div>
-                    <div class="home-slider__item swiper-slide" style="background-image: url(pic/index-slide4.jpg)"></div>
-                    <div class="home-slider__item home-slider__item_black swiper-slide" style="background-image: url(pic/index-slide5.jpg)"></div>
-                    <div class="home-slider__item swiper-slide" style="background-image: url(pic/index-slide6.jpg)"></div>
-                    <div class="home-slider__item swiper-slide" style="background-image: url(pic/index-slide7.jpg)"></div>
-
-                </div>
-
-            </div>
-
-        </div>
+            <?php echo home_slider();?>
         <!-- /home-slider -->
 
         <!-- site__down-link -->
         <a href="#" data-href="php/whatwedo.php" class="site__down-link link-to-page_left">
-            <span>Limited Exclusive Art</span>
+            <span><?php the_field('footer_text'); ?></span>
         </a>
         <!-- /site__down-link -->
 

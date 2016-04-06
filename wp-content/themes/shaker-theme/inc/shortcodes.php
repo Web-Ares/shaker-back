@@ -7,5 +7,45 @@ function our_contact_us_link()
         return '<div class="contact-us"><a href="'.$link_cn.'">Contact Us</a></div>';
 }
 
+function switch_languages(){
+$poly_array = pll_the_languages(array('raw' => true));
+    $list='<div class="language">';
+    foreach($poly_array as $lang){
+        if (pll_current_language('slug') == $lang['slug']) {
+            $list.='<span>'.$lang['name'].'</span>';
+        } else {
+            $list.='<a href="'.$lang['url'].'">'.$lang['name'].'</a>';
+        }
+    }
 
+   return $list.'</div>';
+}
+
+function home_slider(){
+    $list = '<div class="home-slider">
+
+            <!-- Slider main container -->
+            <div class="swiper-container">
+
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">';
+
+    if (have_rows('h_images')) {
+        while (have_rows('h_images')) {
+            the_row();
+            $image = wp_get_attachment_image_src(get_sub_field('g_image'), 'full');
+            $color = get_sub_field('logo_color');
+
+            $list .= '<div class="home-slider__item '.$color.' swiper-slide" style="background-image: url('.$image[0].')"></div>';
+        }
+    }
+
+
+    $list.=' </div>
+
+            </div>
+
+        </div>';
+    return $list;
+}
 ?>
