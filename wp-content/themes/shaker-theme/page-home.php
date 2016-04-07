@@ -2,9 +2,12 @@
 /**
  * Template Name: Home Page
  */
-get_header();
+if (!$_REQUEST['ajax']) {
+    get_header();
+};
 the_post();
 ?>
+
 <div class="site__layout" data-href="<?php echo getPostname(get_field('next_page'));?>">
 
     <!-- site__header -->
@@ -62,5 +65,7 @@ the_post();
 
 </div>
 <?php
-get_footer();
+if (!$_REQUEST['ajax']) {
+    get_footer();
+};
 ?>

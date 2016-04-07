@@ -4,6 +4,7 @@
 define( 'TEMPLATEINC', TEMPLATEPATH . '/inc' );
 define( 'TEMPLATEURI', get_template_directory_uri() );
 
+show_admin_bar( false );
 // Load library files.
 require_once( TEMPLATEINC . '/shortcodes.php' );
 require_once( TEMPLATEINC . '/cpt.php' );

@@ -73,7 +73,7 @@ the_post();
                 </div>
                 <!-- /site__content__row -->
 
-                <p>To see the curated works from our artist log onto the <span>secure space</span></p>
+                <p><?php the_field('bottom_text');?></p>
 
             </div>
             <!-- /site__content__inner -->

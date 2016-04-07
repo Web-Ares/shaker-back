@@ -58,14 +58,13 @@ the_post();
 
 					<!-- site__title -->
 					<h1 class="site__title">
-						Log In
+						<?php the_title();?>
 					</h1>
 					<!-- /site__title -->
 
 					<!-- site__content-text -->
 					<div class="site__content-text">
-						<p>Exclusively access our images & create a wishlist
-							for a personal curated selection of photography.</p>
+						<?php the_content();?>
 
 						<!-- enter-form -->
 						<form class="enter-form" action="#">
