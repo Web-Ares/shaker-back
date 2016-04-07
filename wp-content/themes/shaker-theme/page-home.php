@@ -4,7 +4,7 @@
  */
 get_header();
 ?>
-<div class="site__layout" data-href="<?php echo getPostname(get_temp_ID('pages/page-what.php'));?>">
+<div class="site__layout" data-href="<?php echo getPostname(get_field('next_page'));?>">
 
     <!-- site__header -->
     <header class="site__header site__header_index">
@@ -51,7 +51,7 @@ get_header();
         <!-- /home-slider -->
 
         <!-- site__down-link -->
-        <a href="#" data-href="<?php echo getPostname(get_temp_ID('pages/page-what.php'));?>" class="site__down-link link-to-page_left">
+        <a href="#" data-href="<?php echo getPostname(get_field('next_page'));?>" class="site__down-link link-to-page_left">
             <span><?php the_field('footer_text'); ?></span>
         </a>
         <!-- /site__down-link -->

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: What we do Page
+ * Template Name: Why us Page
  */
 if(!$_REQUEST['ajax']){
     get_header();
@@ -61,20 +61,26 @@ echo $post->ID;
 
 					<!-- site__title -->
 					<h1 class="site__title">
-                                <span><?php the_title();?></span>
+						<span>Why Us</span>
 					</h1>
 					<!-- /site__title -->
 
 					<!-- site__content-text -->
 					<div class="site__content-text">
-					<?php the_title();?>
+						<ul>
+							<li>Our portfolio includes renowned artists & young talents.</li>
+							<li>We know all the artists personally.</li>
+							<li>We offer exclusive access to the artist's studio.</li>
+							<li>All works are hand picked by us and our artists.</li>
+							<li>All works are signed limited editions.</li>
+							<li>Our pictures range between 1,000 € -50,000 €.</li>
+							<li>We offer individual image concepts.</li>
+						</ul>
 					</div>
 					<!-- /site__content-text -->
 
 				</div>
-				<!-- /site__content__row -->
-
-				<p>To see the curated works from our artist log onto the <span>secure space</span></p>
+				<!-- site__content__row -->
 
 			</div>
 			<!-- /site__content__inner -->
@@ -83,7 +89,7 @@ echo $post->ID;
 		<!-- /site__center -->
 
 		<!-- site__down-link -->
-		<a href="#" data-href="<?php echo getPostname(get_field('next_page'));?>" class="site__down-link link-to-page_left"></a>
+		<a href="#" data-href="php/limitedart.php" class="site__down-link link-to-page_left"></a>
 		<!-- /site__down-link -->
 
 	</div>

@@ -48,11 +48,11 @@ function home_slider(){
         </div>';
     return $list;
 }
-function getPostname($object_id)
+function getPostname($object)
 {
-    $post = get_post($object_id, ARRAY_A);
-    return $post_name = $post['post_name'];
+    return $post_name = $object->post_name;
 }
+
 function get_menu_items($menu_name)
 {
     $locations = get_nav_menu_locations();
