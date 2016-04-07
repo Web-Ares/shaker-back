@@ -52,6 +52,11 @@ function getPostname($object)
 {
     return $post_name = $object->post_name;
 }
+function getPostnameMenu($object_id)
+{
+    $post = get_post($object_id, ARRAY_A);
+    return $post_name = $post['post_name'];
+}
 
 function get_menu_items($menu_name)
 {
@@ -68,7 +73,7 @@ function get_menu_items($menu_name)
 
             $title = $menu_item->title;
             $url = $menu_item->url;
-            $menu_list .= '<a href="'.$url.'" class="site__menu-link" data-href="'.getPostname($menu_item->object_id).'">'.$title.'</a>';
+            $menu_list .= '<a href="'.$url.'" class="site__menu-link" data-href="'.getPostnameMenu($menu_item->object_id).'">'.$title.'</a>';
 
         }
 

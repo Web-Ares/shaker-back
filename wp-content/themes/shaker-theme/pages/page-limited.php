@@ -1,4 +1,13 @@
-<div class="site__layout" data-scroll="false">
+<?php
+/**
+ * Template Name: Limited Page
+ */
+if(!$_REQUEST['ajax']){
+    get_header();
+};
+the_post();
+?>
+<div class="site__layout"  data-scroll="false">
 
     <!-- site__header -->
     <header class="site__header">
@@ -7,17 +16,13 @@
         <div class="site__center">
 
             <!--logo-->
-            <a href='#' class="logo">
-                <img class="logo__inner" src="img/logo.png" width="208" height="90" alt="Shaker Wiener">
+            <a href="<?php echo home_url(); ?>" class="logo">
+                <img class="logo__inner" src="<?php echo TEMPLATEURI; ?>/img/logo.png" width="208" height="90"
+                     alt="Shaker Wiener">
             </a>
             <!-- /logo -->
 
-            <!-- language -->
-            <div class="language">
-                <span>En</span>
-                <a href='#'>De</a>
-            </div>
-            <!-- /language -->
+            <?php echo switch_languages(); ?>
 
             <!-- site__menu-btn -->
             <div class="site__menu">
@@ -29,13 +34,7 @@
                 <!-- /site__menu-btn -->
 
                 <!-- site__nav -->
-                <nav class="site__menu-nav site__menu-nav_ajax">
-                    <a href='#' class="site__menu-link" data-href="php/whatwedo.php">What We Do</a>
-                    <a href='#' class="site__menu-link" data-href="php/whyus.php">Why Us</a>
-                    <a href='#' class="site__menu-link" data-href="php/limitedart.php">Limited Exclusive Art</a>
-                    <a href='#' class="site__menu-link" data-href="php/contact.php">Contact</a>
-                    <a href='#' class="site__menu-link" data-href="php/login.php">Log In/Sign up</a>
-                </nav>
+                <?php echo get_menu_items('main_menu'); ?>
                 <!-- /site__nav -->
 
             </div>
@@ -2126,3 +2125,11 @@
     <!-- /popup -->
 
 </div>
+<link rel="stylesheet" href="<?php echo TEMPLATEURI ?>/css/limited-art.css">
+
+
+<?php
+if(!$_REQUEST['ajax']){
+    get_footer();
+};
+?>

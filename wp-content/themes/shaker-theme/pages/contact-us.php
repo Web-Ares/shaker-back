@@ -1,23 +1,29 @@
-<div class="site__layout" data-href="php/login.php">
+<?php
+/**
+ * Template Name: Contact us Page
+ */
 
+if (!$_REQUEST['ajax']) {
+    get_header();
+};
+the_post();
+
+?>
+
+<div class="site__layout" data-href="<?php echo getPostname(get_field('next_page', $post->ID)); ?>">
     <!-- site__header -->
     <header class="site__header">
-
         <!-- site__center -->
         <div class="site__center">
 
             <!--logo-->
-            <a href="#" class="logo">
-                <img class="logo__inner" src="img/logo.png" width="208" height="90" alt="Shaker Wiener">
+            <a href="<?php echo home_url(); ?>" class="logo">
+                <img class="logo__inner" src="<?php echo TEMPLATEURI; ?>/img/logo.png" width="208" height="90"
+                     alt="Shaker Wiener">
             </a>
             <!-- /logo -->
 
-            <!-- language -->
-            <div class="language">
-                <span>En</span>
-                <a href="#">De</a>
-            </div>
-            <!-- /language -->
+            <?php echo switch_languages(); ?>
 
             <!-- site__menu-btn -->
             <div class="site__menu">
@@ -29,13 +35,7 @@
                 <!-- /site__menu-btn -->
 
                 <!-- site__nav -->
-                <nav class="site__menu-nav site__menu-nav_ajax">
-                    <a href="#" class="site__menu-link" data-href="php/whatwedo.php">What We Do</a>
-                    <a href="#" class="site__menu-link" data-href="php/whyus.php">Why Us</a>
-                    <a href="#" class="site__menu-link" data-href="php/limitedart.php">Limited Exclusive Art</a>
-                    <a href="#" class="site__menu-link" data-href="php/contact.php">Contact</a>
-                    <a href="#" class="site__menu-link" data-href="php/login.php">Log In/Sign up</a>
-                </nav>
+                <?php echo get_menu_items('main_menu'); ?>
                 <!-- /site__nav -->
 
             </div>
@@ -82,7 +82,7 @@
 
                         <!-- contact-info__signature -->
                         <div class="contact-info__signature">
-                            <img src="pic/signature.png" width="127" height="44" alt="">
+                            <img src="<?php echo TEMPLATEURI; ?>/pic/signature.png" width="127" height="44" alt="">
                         </div>
                         <!-- /contact-info__signature -->
 
@@ -118,7 +118,7 @@
 
                         <!-- contact-info__signature -->
                         <div class="contact-info__signature">
-                            <img src="pic/signature2.png" width="114" height="55" alt="">
+                            <img src="<?php echo TEMPLATEURI; ?>/pic/signature2.png" width="114" height="55" alt="">
                         </div>
                         <!-- /contact-info__signature -->
 
@@ -147,10 +147,16 @@
         <!-- /site__center -->
 
         <!-- site__down-link -->
-        <a href="#" data-href="php/login.php" class="site__down-link link-to-page_left"></a>
+        <a href="#" data-href="<?php echo getPostname(get_field('next_page', $post->ID)); ?>" class="site__down-link link-to-page_left"></a>
         <!-- /site__down-link -->
 
     </div>
     <!-- /site__content -->
 
 </div>
+
+<?php
+if (!$_REQUEST['ajax']) {
+    get_footer();
+};
+?>

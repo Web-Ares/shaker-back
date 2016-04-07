@@ -3,6 +3,7 @@
  * Template Name: Home Page
  */
 get_header();
+the_post();
 ?>
 <div class="site__layout" data-href="<?php echo getPostname(get_field('next_page'));?>">
 

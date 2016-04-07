@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Why us Page
+ * Template Name: Sign up Page
  */
 if(!$_REQUEST['ajax']){
     get_header();
@@ -58,26 +58,36 @@ the_post();
 
 					<!-- site__title -->
 					<h1 class="site__title">
-						<span>Why Us</span>
+						Sign up
 					</h1>
 					<!-- /site__title -->
 
 					<!-- site__content-text -->
 					<div class="site__content-text">
-						<ul>
-							<li>Our portfolio includes renowned artists & young talents.</li>
-							<li>We know all the artists personally.</li>
-							<li>We offer exclusive access to the artist's studio.</li>
-							<li>All works are hand picked by us and our artists.</li>
-							<li>All works are signed limited editions.</li>
-							<li>Our pictures range between 1,000 € -50,000 €.</li>
-							<li>We offer individual image concepts.</li>
-						</ul>
+						<p>Exclusively access our images & create a wishlist
+							for a personal curated selection of photography.</p>
+
+						<!-- enter-form -->
+						<form class="enter-form" action="#">
+							<input class="site__input" type="text" name="name" placeholder="Name">
+							<input class="site__input" type="email" name="email" placeholder="Email">
+							<input class="site__input" type="text" name="user-name" placeholder="User Name">
+
+							<!-- enter-form__send -->
+							<div class="enter-form__send">
+								<button class="btn" type="submit">Create Account</button>
+								<span class="enter-form__notice">Your password will be emailed</span>
+							</div>
+							<!-- /enter-form__send -->
+
+						</form>
+						<!-- enter-form -->
+
 					</div>
 					<!-- /site__content-text -->
 
 				</div>
-				<!-- site__content__row -->
+				<!-- /site__content__row -->
 
 			</div>
 			<!-- /site__content__inner -->
@@ -86,7 +96,7 @@ the_post();
 		<!-- /site__center -->
 
 		<!-- site__down-link -->
-		<a href="#" data-href="<?php echo getPostname(get_field('next_page',$post->ID));?>" class="site__down-link link-to-page_left"></a>
+		<a href="#" data-href="<?php echo getPostname(get_field('next_page', $post->ID)); ?>" class="site__down-link link-to-page_left"></a>
 		<!-- /site__down-link -->
 
 	</div>
