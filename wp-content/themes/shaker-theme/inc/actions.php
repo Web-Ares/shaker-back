@@ -218,6 +218,11 @@ $result = add_role('client', __(
 
     ));
 
+register_nav_menus( array(
+    'main_menu' => 'menu_main',
+    'auth_menu' => 'auth_menu'
+) );
+
 add_action('user_register', 'myplugin_registration_save', 10, 1);
 
 function myplugin_registration_save($array)

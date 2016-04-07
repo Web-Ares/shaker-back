@@ -4,7 +4,7 @@
  */
 get_header();
 ?>
-<div class="site__layout" data-href="php/whatwedo.php">
+<div class="site__layout" data-href="<?php echo getPostname(get_temp_ID('pages/page-what.php'));?>">
 
     <!-- site__header -->
     <header class="site__header site__header_index">
@@ -31,13 +31,7 @@ get_header();
                 <!-- /site__menu-btn -->
 
                 <!-- site__nav -->
-                <nav class="site__menu-nav site__menu-nav_ajax">
-                    <a href="#" class="site__menu-link" data-href="php/whatwedo.php">What We Do</a>
-                    <a href="#" class="site__menu-link" data-href="php/whyus.php">Why Us</a>
-                    <a href="#" class="site__menu-link" data-href="php/limitedart.php">Limited Exclusive Art</a>
-                    <a href="#" class="site__menu-link" data-href="php/contact.php">Contact</a>
-                    <a href="#" class="site__menu-link" data-href="php/login.php">Log In/Sign up</a>
-                </nav>
+                <?php echo get_menu_items('main_menu'); ?>
                 <!-- /site__nav -->
 
             </div>
@@ -57,7 +51,7 @@ get_header();
         <!-- /home-slider -->
 
         <!-- site__down-link -->
-        <a href="#" data-href="php/whatwedo.php" class="site__down-link link-to-page_left">
+        <a href="#" data-href="<?php echo getPostname(get_temp_ID('pages/page-what.php'));?>" class="site__down-link link-to-page_left">
             <span><?php the_field('footer_text'); ?></span>
         </a>
         <!-- /site__down-link -->

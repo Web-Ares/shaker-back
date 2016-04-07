@@ -48,4 +48,30 @@ function home_slider(){
         </div>';
     return $list;
 }
+function getPostname($object_id)
+{
+    $post = get_post($object_id, ARRAY_A);
+    return $post_name = $post['post_name'];
+}
+function get_menu_items($menu_name)
+{
+    $locations = get_nav_menu_locations();
+    $menu_items = wp_get_nav_menu_items($locations[$menu_name]);
+    $menu_list = '<nav class="site__menu-nav site__menu-nav_ajax">';
+    if (is_array($menu_items))
+        foreach ((array)$menu_items as $key => $menu_item) {
+            $class = '';
+            $classes = $menu_item->classes;
+            foreach ($classes as $key => $val) {
+                $class .= ' ' . $val;
+            }
+
+            $title = $menu_item->title;
+            $url = $menu_item->url;
+            $menu_list .= '<a href="'.$url.'" class="site__menu-link" data-href="'.getPostname($menu_item->object_id).'">'.$title.'</a>';
+
+        }
+
+    return $menu_list.'</nav>';
+}
 ?>
