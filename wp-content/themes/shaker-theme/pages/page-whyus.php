@@ -57,7 +57,7 @@ the_post();
 				<div class="site__content__row">
 
 					<!-- site__title -->
-					<h1 class="site__title">
+					<h1 class="site__title site_canvas">
 						<span>Why Us</span>
 					</h1>
 					<!-- /site__title -->
