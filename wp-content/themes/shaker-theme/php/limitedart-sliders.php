@@ -106,6 +106,7 @@ if( $button == '2' ){
                                                 <!-- /single-photos-slider__item -->
 
                                             </div>
+
                                             <div class='swiper-slide'>
 
                                                 <!-- single-photos-slider__item -->

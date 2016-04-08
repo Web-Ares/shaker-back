@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="<?php echo TEMPLATEURI; ?>/favicon.ico" type="image/x-icon"/>
     <?php wp_head(); ?>
 </head>
-<body>
+<body data-action="<?php echo admin_url( 'admin-ajax.php' );?>">
 
 <div class="site__loading"></div>
 

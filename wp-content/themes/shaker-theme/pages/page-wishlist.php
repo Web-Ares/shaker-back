@@ -1,10 +1,11 @@
 <?php
 /**
- * Template Name: Sign up Page
+ * Template Name: Wish list Page
  */
-if(!$_REQUEST['ajax']){
-    get_header();
-};
+
+
+get_header();
+
 the_post();
 ?>
 
@@ -58,29 +59,26 @@ the_post();
 
 					<!-- site__title -->
 					<h1 class="site__title site_canvas">
-						<?php the_title();?>
+						<span>Why Us</span>
 					</h1>
 					<!-- /site__title -->
 
 					<!-- site__content-text -->
 					<div class="site__content-text">
-						<?php the_content();?>
-
-						<?php
-						$cur_slug = pll_current_language('slug');
-						if($cur_slug=='de'){
-                            echo do_shortcode('[contact-form-7 id="148" title="Registration form" html_class="enter-form"]');
-                        }else{
-                            echo do_shortcode('[contact-form-7 id="5" title="Registration form" html_class="enter-form"]');
-                        }
-
-						?>
-
+						<ul>
+							<li>Our portfolio includes renowned artists & young talents.</li>
+							<li>We know all the artists personally.</li>
+							<li>We offer exclusive access to the artist's studio.</li>
+							<li>All works are hand picked by us and our artists.</li>
+							<li>All works are signed limited editions.</li>
+							<li>Our pictures range between 1,000 € -50,000 €.</li>
+							<li>We offer individual image concepts.</li>
+						</ul>
 					</div>
 					<!-- /site__content-text -->
 
 				</div>
-				<!-- /site__content__row -->
+				<!-- site__content__row -->
 
 			</div>
 			<!-- /site__content__inner -->
@@ -89,7 +87,7 @@ the_post();
 		<!-- /site__center -->
 
 		<!-- site__down-link -->
-		<a href="#" data-href="<?php echo getPostname(get_field('next_page', $post->ID)); ?>" class="site__down-link link-to-page_left"></a>
+		<a href="#" data-href="<?php echo getPostname(get_field('next_page',$post->ID));?>" class="site__down-link link-to-page_left"></a>
 		<!-- /site__down-link -->
 
 	</div>
@@ -98,7 +96,7 @@ the_post();
 </div>
 
 <?php
-if(!$_REQUEST['ajax']){
+
     get_footer();
-};
+
 ?>

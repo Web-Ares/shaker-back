@@ -6,3 +6,9 @@ Version: 1.0
 #date{
     width: 15%;
 }
+
+.screen-reader-response,
+.wpcf7-response-output,
+.wpcf7-not-valid-tip{
+    display: none!important;
+}

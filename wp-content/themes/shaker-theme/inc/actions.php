@@ -76,12 +76,6 @@ function add_files()
     wp_register_script('jquery', TEMPLATEURI.'/js/vendors/jquery-2.1.4.min.js', false, '2.1.4', false);
     wp_enqueue_script('jquery');
 
-    wp_localize_script('jquery', 'myajax',
-        array(
-            'url' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('myajax-nonce')
-        )
-    );
     wp_enqueue_style('style-name', get_stylesheet_uri());
 
     wp_enqueue_style('style-swiper', TEMPLATEURI.'/css/swiper.min.css');
