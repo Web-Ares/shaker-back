@@ -135,7 +135,7 @@ function getCategories($isajax=true,$button=false)
         $response['btn'] = 'Categories';
     }else{
         $response=array('id'=>'author_categories');
-        $response['btn'] = 'Authors';
+        $response['btn'] = 'Signature line';
     }
 
     $response["set"] = getLimitedCat($user_id,$button);

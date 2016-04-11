@@ -10,7 +10,7 @@ the_post();
 
 ?>
 
-<div class="site__layout" data-href="<?php echo getPostname(get_field('next_page', $post->ID)); ?>">
+<div class="site__layout" data-href="<?php echo getPostname(get_field('next_page', $post->ID));  ?>"  data-scroll="false">
     <!-- site__header -->
     <header class="site__header">
         <!-- site__center -->

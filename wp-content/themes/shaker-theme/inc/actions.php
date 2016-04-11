@@ -191,6 +191,12 @@ function get_login_url()
     return $permalink = get_permalink($temp_id);
     wp_reset_query();
 }
+function get_curation_url()
+{
+    $temp_id = get_temp_ID('pages/page-curations.php');
+    return $permalink = get_permalink($temp_id);
+    wp_reset_query();
+}
 
 function ssd_admin_clean_up()
 {

@@ -36,7 +36,7 @@ the_post();
                     <!--/site__header-user-->
 
                     <!--site__header-curations-->
-                    <a href="" class="site__header-curations">
+                    <a href="<?php echo get_curation_url(); ?>" class="site__header-curations">
                         My Personal Curations
                     </a>
                     <!--/site__header-curations-->
