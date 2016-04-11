@@ -75,7 +75,13 @@ function get_menu_items($menu_name)
                 $menu_list .= '<a href="' . wp_logout_url(home_url()) . '" class="site__menu-nonelink" data-href="link">' . $title . '</a>';
 
             }else{
-                $menu_list .= '<a href="' . $url . '" class="site__menu-link" data-href="' . getPostnameMenu($menu_item->object_id) . '">' . $title . '</a>';
+                if( wp_get_current_user()->exists() ){
+                    $menu_list .= '<a href="' . $url . '" class="site__menu-nonelink" data-href="' . getPostnameMenu($menu_item->object_id) . '">' . $title . '</a>';
+
+                }else{
+                    $menu_list .= '<a href="' . $url . '" class="site__menu-link" data-href="' . getPostnameMenu($menu_item->object_id) . '">' . $title . '</a>';
+
+                }
 
             }
         }
