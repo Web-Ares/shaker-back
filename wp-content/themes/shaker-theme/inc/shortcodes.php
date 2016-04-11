@@ -254,7 +254,7 @@ function setLimitedSlider($images, $islast)
             if ($like_id['post_id'] == $needle) $islike = 'liked';
         }
         $price = $image['post_id'];
-        $like = 0 == $current_user->ID ? '' : "<a href='#' class='single-photos-slider__like " . $islike . "' data-action='' data-id='" . $image['post_id'] . "' image-id='" . $image['img_id'] . "'>like</a>";
+        $like = 0 == $current_user->ID ? '' : "<a href='#' class='single-photos-slider__like " . $islike . "' data-action='' data-id='" . $image['post_id'] . "' data-image_id='" . $image['img_id'] . "'>like</a>";
         $title = getImgName($image);
         $list .= " <!-- single-photos-slider__item -->
                                                 <div class='single-photos-slider__item' style='background-image: url(" . $image['img_image'] . ")'>

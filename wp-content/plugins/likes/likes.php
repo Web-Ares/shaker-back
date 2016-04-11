@@ -102,9 +102,9 @@ class Likes_List extends WP_List_Table
      */
     public function getThumbs($id)
     {
-        $ava = wp_get_attachment_image_src(get_field('img_image', $id), 'tx170');
+        $ava = get_field('img_image', $id);
         if (count($ava) > 0) {
-            return '<img src="' . $ava[0] . '">';
+            return '<img src="'.$ava.'" width="170px">';
         }
         return '';
     }
@@ -140,7 +140,7 @@ class Likes_List extends WP_List_Table
             case 'image_id':
                     return '<a href="/wp-admin/post.php?post='.$item['post_id'].'&action=edit">'.$item['image_id'].'</a>';
             case 'date':
-                return $item[$column_name];
+                return date('Y-m-d H:i:s',$item[$column_name]);
             case 'post_id':
                 return $this->getThumbs($item[$column_name]);
             default:

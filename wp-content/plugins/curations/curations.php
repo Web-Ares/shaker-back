@@ -313,7 +313,6 @@ function getSubcategories()
     $sql = "SELECT post_id  FROM {$wpdb->prefix}users_curations";
     $sql .= " WHERE user_id =" . $user_id;
     $result = $wpdb->get_results($sql, 'ARRAY_A');
-    $list = [];
     $posts = [];
     foreach($result as $val){
         $posts[] = $val['post_id'];
