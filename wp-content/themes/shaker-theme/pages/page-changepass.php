@@ -2,6 +2,9 @@
 /**
  * Template Name: Change password Page
  */
+
+$cur_user = wp_get_current_user();
+if($cur_user->ID==0){ wp_redirect(home_url()); exit;}
 if(!$_REQUEST['ajax']){
     get_header();
 };

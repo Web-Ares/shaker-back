@@ -10,8 +10,8 @@
 <?php
 
 $button = esc_sql($_GET['data-id']);
-$sliders = getCatAndPost($button);
 
+$sliders = Limitedart::getCatAndPost($button);
 ?>
 <!-- multi-photos-slider -->
 <div class='multi-photos-slider swiper-container'>
@@ -31,12 +31,12 @@ $sliders = getCatAndPost($button);
                 $img_fields['likes'] = $likes;
 
                 if ($img_fields['img_image_position'] == 2) {
-                    $list .= setLimitedSlider(array($img_fields), false);
+                    $list .= Limitedart::setLimitedSlider(array($img_fields), false);
 
                 } else {
                     if (count($vertical_array) >= 1) {
                         $vertical_array[] = $img_fields;
-                        $list .= setLimitedSlider($vertical_array, false);
+                        $list .= Limitedart::setLimitedSlider($vertical_array, false);
                         $vertical_array = array();
                     } else {
                         $vertical_array[] = $img_fields;
@@ -45,7 +45,7 @@ $sliders = getCatAndPost($button);
                 }
             }
             if (count($vertical_array) > 0) {
-                $list .= setLimitedSlider(array($vertical_array[0]), true);
+                $list .= Limitedart::setLimitedSlider(array($vertical_array[0]), true);
                 $vertical_array = [];
             }
             $list .= "</div>

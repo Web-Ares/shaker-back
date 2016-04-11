@@ -80,8 +80,9 @@ the_post();
 
                 <!-- categories -->
                 <div class="categories" data-action="php/categories.php">
-                    <?php $categories = getCategories('get', 'img_categories');
-                    echo visualCategor($categories);
+                    <?php
+                    $categories = Limitedart::getCategories('get', 'img_categories');
+                    echo Limitedart::visualCategor($categories);
                     ?>
                 </div>
                 <!-- /categories -->

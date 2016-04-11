@@ -116,35 +116,10 @@ function setLikes()
 add_action('wp_ajax_getcategories', 'getCategories');
 add_action('wp_ajax_nopriv_getcategories', 'getCategories');
 
-/**
- *
- */
+
 function getCategories($isajax=true,$button=false)
 {
-    global $wpdb;
-
-    if($button===false){
-        $button = esc_sql($_GET['data-id']);
-    }
-
-    $user_id = 0;
-
-
-    if($button=='author_categories'){
-        $response=array('id'=>'img_categories');
-        $response['btn'] = 'Categories';
-    }else{
-        $response=array('id'=>'author_categories');
-        $response['btn'] = 'Signature line';
-    }
-
-    $response["set"] = getLimitedCat($user_id,$button);
-
-    if($isajax==''){
-        die(json_encode($response));
-    }else{
-        return $response;
-    }
+    Limitedart::getCategories($isajax,$button);
 }
 
 add_action('wp_ajax_getslidercontent', 'getSlidercontent');

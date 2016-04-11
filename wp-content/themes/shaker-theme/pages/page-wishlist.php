@@ -3,7 +3,8 @@
  * Template Name: Wish list Page
  */
 
-
+$cur_user = wp_get_current_user();
+if($cur_user->ID==0){ wp_redirect(home_url()); exit;}
 get_header();
 
 the_post();

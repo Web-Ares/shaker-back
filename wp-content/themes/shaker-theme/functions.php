@@ -11,3 +11,5 @@ require_once( TEMPLATEINC . '/cpt.php' );
 require_once( TEMPLATEINC . '/template.php' );
 require_once( TEMPLATEINC . '/actions.php' );
 require_once( TEMPLATEINC . '/widget.php' );
+require_once( TEMPLATEINC . '/limitedart.php' );
+require_once( TEMPLATEINC . '/curations.php' );
