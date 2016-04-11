@@ -12,34 +12,36 @@ class Curations
      * @var array
      */
     public static $limited_categories = [];
-    public static $user_id=null;
+    public static $user_id = null;
+
     function __construct()
     {
         $cur_user = wp_get_current_user();
         self::$user_id = $cur_user->ID;
+        self::getCategories();
     }
 
+    public static function showCategories()
+    {
+        $list = '';
+        $i=0;
+        foreach(self::$limited_categories as $key=>$option){
+            if($list==''){
+                $list.='<a href=\'#\' class="categories__set-item active" data-slider="'.$i.'">'.$option['title'].'</a>';
+            }else{
+                $list.='<a href=\'#\' class="categories__set-item" data-slider="'.$i.'">'.$option['title'].'</a>';
+            }
+            $i++;
+        }
+        return $list;
+    }
 
     public static function getCategories()
     {
-        global $wpdb;
 
+        self::$limited_categories = self::getLimitedCat(self::$user_id, 'img_categories');
 
-        $user_id = 0;
-
-
-
-        $response = array('id' => 'img_categories');
-        $response['btn'] = 'Categories';
-
-
-        $response["set"] = self::getLimitedCat($user_id, $button);
-
-        if ($isajax == '') {
-            die(json_encode($response));
-        } else {
-            return $response;
-        }
+        return self::$limited_categories;
     }
 
     public static function getLimitedCat($user_id, $cat)
@@ -77,38 +79,6 @@ class Curations
         self::$limited_categories = $temp_array;
     }
 
-    public static function visualCategor($categories)
-    {
-        $list = '';
-        $i = 0;
-        foreach ($categories['set'] as $category) {
-            if ($list == '') {
-                $list .= '<div class="categories__set">';
-                $class = 'active';
-            } else {
-                $class = '';
-            }
-            $list .= ' <a href=\'#\' class="categories__set-item ' . $class . '" data-slider="' . $i . '">' . $category["title"] . '</a>
-        ';
-            $i++;
-        }
-
-        $list .= '</div>';
-
-
-        $list .= ' <!-- categories__name -->
-                    <div class="categories__name">
-
-                        <!-- categories__btn -->
-                        <a href=\'#\' class="categories__btn" data-id="' . $categories['id'] . '">' . $categories['btn'] . '</a>
-                        <!-- /categories__btn -->
-
-                    </div>
-                    <!-- /categories__name -->';
-
-
-        return $list;
-    }
 
     public static function getCatAndPost($cat)
     {
@@ -245,6 +215,7 @@ class Curations
         }
 
         $list .= "</div>";
+
         return $list;
     }
 

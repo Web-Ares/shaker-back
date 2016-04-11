@@ -19,7 +19,12 @@ $sliders = Limitedart::getCatAndPost($button);
         <?php
         $list = '';
         $current_user = wp_get_current_user();
-        $likes = get_user_likes($current_user->ID);
+        $current_user = wp_get_current_user();
+        if($current_user->ID!==0){
+            $likes = get_user_likes($current_user->ID);
+        }else{
+            $likes = [];
+        }
         foreach ($sliders as $slider) {
             $list .= "<div class='swiper-slide'>
                         <div class='single-photos-slider swiper-container'>

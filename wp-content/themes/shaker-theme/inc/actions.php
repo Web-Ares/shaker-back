@@ -202,7 +202,7 @@ function ssd_admin_clean_up()
 {
 //    remove_menu_page( 'edit.php?post_type=post');
 //    remove_menu_page( 'edit-comments.php');
-////    remove_menu_page( 'wpcf7');
+//    remove_menu_page( 'wpcf7');
 //    remove_menu_page('edit.php');
 //    remove_menu_page( 'acf');
 //    remove_menu_page( 'edit.php?post_type=acf-field-group' );
