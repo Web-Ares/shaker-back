@@ -128,11 +128,14 @@ the_post();
         </div>
         <!-- /site__center -->
 
-        <!-- site__down-link -->
-        <a href="#" data-href="<?php echo getPostname(get_field('next_page', $post->ID)); ?>"
-           class="site__down-link link-to-page_left"></a>
-        <!-- /site__down-link -->
+        <?php
 
+        if (!wp_get_current_user()->exists()) {?>
+            <!-- site__down-link -->
+            <a href="#" data-href="<?php echo getPostname(get_field('next_page', $post->ID)); ?>"
+               class="site__down-link link-to-page_left"></a>
+            <!-- /site__down-link -->
+        <?php }; ?>
     </div>
     <!-- /site__content -->
 

@@ -21,3 +21,19 @@ Version: 1.0
 .empty{
     border:1px solid red!important;
 }
+
+.site__menu-nonelink {
+    display: block;
+    color: #000;
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 13px;
+    line-height: 13px;
+    padding: 3.5px 7px;
+    transition: background 0.3s
+}
+
+.site__menu-nonelink:hover {
+    background: #dfdfdf
+}

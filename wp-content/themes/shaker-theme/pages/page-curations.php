@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Limited Page
+ * Template Name: Curations Page
  */
 if (!$_REQUEST['ajax']) {
     get_header();
@@ -21,29 +21,6 @@ the_post();
                      alt="Shaker Wiener">
             </a>
             <!-- /logo -->
-
-            <?php if (wp_get_current_user()->exists()) {
-
-                $current_user = wp_get_current_user(); ?>
-                <!-- site__header-items -->
-                <div class="site__header-items">
-
-                    <!--site__header-user-->
-                    <div class="site__header-user">
-                        <span>Welcome Back</span>
-                        <span class="site__header-user-name"><?php echo $current_user->display_name; ?></span>
-                    </div>
-                    <!--/site__header-user-->
-
-                    <!--site__header-curations-->
-                    <a href="" class="site__header-curations">
-                        My Personal Curations
-                    </a>
-                    <!--/site__header-curations-->
-
-                </div>
-                <!-- /site__header-items -->
-            <?php } ?>
 
             <?php echo switch_languages(); ?>
 
@@ -80,8 +57,8 @@ the_post();
 
                 <!-- categories -->
                 <div class="categories" data-action="php/categories.php">
-                    <?php $categories = getCategories('get', 'img_categories');
-                    echo visualCategor($categories);
+                    <?php $categories = getCategories('get', 'author_categories');
+                        echo visualCategor($categories);
                     ?>
                 </div>
                 <!-- /categories -->
@@ -90,8 +67,8 @@ the_post();
                 <div class="art__sliders" data-action="">
 
                     <?php
-                    $_GET['data-id'] = 'img_categories';
-                    get_template_part('pages/partlimited');
+                        $_GET['data-id'] = 'author_categories';
+                        get_template_part('pages/partlimited');
                     ?>
 
 

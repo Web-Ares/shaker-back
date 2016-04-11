@@ -76,12 +76,16 @@ function add_files()
     wp_register_script('jquery', TEMPLATEURI.'/js/vendors/jquery-2.1.4.min.js', false, '2.1.4', false);
     wp_enqueue_script('jquery');
 
-    wp_enqueue_style('style-name', get_stylesheet_uri());
+    wp_enqueue_style('style-all', get_stylesheet_uri());
 
     wp_enqueue_style('style-swiper', TEMPLATEURI.'/css/swiper.min.css');
     wp_enqueue_style('style-index', TEMPLATEURI.'/css/index.css');
+    if (wp_get_current_user()->exists()) {
+        wp_enqueue_style('style-wish', TEMPLATEURI . '/css/wish-list.css');
+    }
 
-    wp_enqueue_script('script-nicescroll', TEMPLATEURI . '/js/vendors/jquery.nicescroll.min.js', array(), '1.0.0', true);
+
+wp_enqueue_script('script-nicescroll', TEMPLATEURI . '/js/vendors/jquery.nicescroll.min.js', array(), '1.0.0', true);
     wp_enqueue_script('script-swiper', TEMPLATEURI . '/js/vendors/swiper.jquery.min.js', array(), '1.0.0', true);
     wp_enqueue_script('script-history', TEMPLATEURI . '/js/vendors/history.js', array(), '1.0.0', true);
     wp_enqueue_script('script-main', TEMPLATEURI . '/js/main.min.js', array(), '1.0.0', true);
