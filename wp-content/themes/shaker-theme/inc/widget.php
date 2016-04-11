@@ -127,14 +127,8 @@ function getCategories($isajax=true,$button=false)
         $button = esc_sql($_GET['data-id']);
     }
 
-    $current_user = wp_get_current_user();
+    $user_id = 0;
 
-    if ( 0 == $current_user->ID ) {
-        $user_id = 0;
-    } else {
-        $user_id = $current_user->ID;
-        // Авторизован.
-    }
 
     if($button=='author_categories'){
         $response=array('id'=>'img_categories');

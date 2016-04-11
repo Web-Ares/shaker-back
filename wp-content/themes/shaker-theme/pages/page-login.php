@@ -66,21 +66,20 @@ the_post();
 					<div class="site__content-text">
 						<?php the_content();?>
 
-						<!-- enter-form -->
-						<form class="enter-form" action="#">
-							<input class="site__input" type="text" name="user-name" placeholder="User Name">
-							<input class="site__input" type="password" name="pass" placeholder="Password">
 
-							<!-- enter-form__send -->
-							<div class="enter-form__send">
-								<a class="enter-form__forgot" href="#"><?php _e( 'Lost your password?' ); ?>
-								</a>
-								<button class="btn" type="submit">Log In</button>
-							</div>
-							<!-- /enter-form__send -->
-
-						</form>
-						<!-- enter-form -->
+						<?php
+						if ( ! is_user_logged_in() ) { // Display WordPress login form:
+							$args = array(
+								'redirect' => home_url(),
+								'form_id' => 'loginform-custom',
+								'class_id' => 'enter-form',
+								'remember' => false
+							);
+							wp_mylogin_form( $args );
+						} else { // If logged in:
+							wp_myloginout( home_url() ); // Display "Log Out" link.
+						}
+						?>
 
 					</div>
 					<!-- /site__content-text -->

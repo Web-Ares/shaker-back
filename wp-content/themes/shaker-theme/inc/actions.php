@@ -87,6 +87,8 @@ function add_files()
     wp_enqueue_script('script-main', TEMPLATEURI . '/js/main.min.js', array(), '1.0.0', true);
     wp_enqueue_script('script-index', TEMPLATEURI . '/js/index.min.js', array(), '1.0.0', true);
     wp_enqueue_script('script-limited', TEMPLATEURI . '/js/limited-art.min.js', array(), '1.0.0', true);
+    wp_enqueue_script('script-cform7', '/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js', array(), '1.0.0', true);
+    wp_enqueue_script('script-cf7', '/wp-content/plugins/contact-form-7/includes/js/scripts.js', array(), '1.0.0', true);
 
 //    wp_enqueue_script('script-mobile-menu', get_template_directory_uri() . '/js/jquery.mobile-menu.js', array(), '1.0.0', true);
 //    wp_enqueue_script('script-liMarquee', get_template_directory_uri() . '/js/jquery.liMarquee.js', array(), '1.0.0', true);

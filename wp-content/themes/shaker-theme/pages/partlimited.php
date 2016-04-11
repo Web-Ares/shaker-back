@@ -7,7 +7,9 @@
  */
 ?>
 
-<?php $button = esc_sql($_GET['data-id']);
+<?php
+
+$button = esc_sql($_GET['data-id']);
 $sliders = getCatAndPost($button);
 
 ?>

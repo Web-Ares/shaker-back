@@ -94,7 +94,7 @@ function getLimitedCat($user_id, $cat)
     $sql .= " WHERE user_id =" . $user_id;
     $result = $wpdb->get_results($sql, 'ARRAY_A');
     $args = array();
-    $defaults = array('fields' => 'all');
+    $defaults = array('fields' => 'all', 'parent' => 0);
     $args = wp_parse_args($args, $defaults);
     $users_categories = array();
 
@@ -154,7 +154,7 @@ function getCatAndPost($cat)
     $sql .= " WHERE user_id =" . $user_id;
     $result = $wpdb->get_results($sql, 'ARRAY_A');
     $args = array();
-    $defaults = array('fields' => 'all');
+    $defaults = array('fields' => 'all', 'parent' => 0);
     $args = wp_parse_args($args, $defaults);
     $users_categories = array();
 
@@ -169,28 +169,76 @@ function getCatAndPost($cat)
 
     return $users_categories;
 }
-function getImgName($image){
+
+function getImgName($image)
+{
     $cur_slug = pll_current_language('slug');
-    if($cur_slug=='de'){
+    if ($cur_slug == 'de') {
         return $image['img_title_de'];
-    }else{
-       return get_the_title($image['post_id']);
+    } else {
+        return get_the_title($image['post_id']);
     }
 }
-function getImgAuthor($image){
+
+function getImgAuthor($image)
+{
     $cur_slug = pll_current_language('slug');
-    if($cur_slug=='de'){
-        return get_field('cat_translate', 'author_categories_'.$image['img_author']);
-    }else{
-        $tt = get_term( $image['img_author'], 'author_categories');
+    if ($cur_slug == 'de') {
+        return get_field('cat_translate', 'author_categories_' . $image['img_author']);
+    } else {
+        $tt = get_term($image['img_author'], 'author_categories');
         return $tt->name;
     }
 }
 
-function setLimitedSlider($images,$islast)
+function getSelect($select)
 {
 
-    if (count($images) > 1 or $islast===true) {
+    if (count($select) > 0) {
+        $list = "<span class='single-photos-slider__price'>" . $select[0]['img_size_i_price'] . "</span>";
+        $list .= "
+                                                            <!-- single-photos-slider__sizes -->
+                                                            <div class='single-photos-slider__sizes'>
+
+                                                                <!-- single-photos-slider__sizes-selected -->
+                                                                <span class='single-photos-slider__sizes-selected'>". $select[0]['img_size_i_(width_x_hight)_cm'] ."</span>
+                                                                <!-- /single-photos-slider__sizes-selected -->
+
+                                                                 <!-- single-photos-slider__drop -->
+                                                                <div class='single-photos-slider__drop'>
+";
+        foreach($select as $key=>$val ){
+            if($key==0){
+                $active = 'active';
+            }else{
+                $active = '';
+            }
+            $list .="<a href='#' class='".$active."' data-price='".$val['img_size_i_price']."'>".$val['img_size_i_(width_x_hight)_cm']."</a>";
+        }
+
+        $list .="
+         </div>
+                                                                <!-- /single-photos-slider__drop -->
+
+                                                                <!-- single-photos-slider__count -->
+                                                                <span class='single-photos-slider__count'>
+                                                                    [<span>1</span>/<span>".count($select)."</span>]
+                                                                </span>
+                                                                <!-- /single-photos-slider__count -->
+
+                                                            </div>
+                                                            <!-- /single-photos-slider__sizes -->";
+
+        return $list;
+    } else {
+        return '';
+    }
+}
+
+function setLimitedSlider($images, $islast)
+{
+
+    if (count($images) > 1 or $islast === true) {
         $list = "<div class='swiper-slide swiper-slide_vertical'>";
     } else {
         $list = "<div class='swiper-slide'>";
@@ -202,51 +250,27 @@ function setLimitedSlider($images,$islast)
         $current_user = wp_get_current_user();
         $needle = $image['post_id'];
         $islike = "";
-        foreach($image['likes'] as $like_id){
-            if($like_id['post_id']==$needle) $islike='liked';
+        foreach ($image['likes'] as $like_id) {
+            if ($like_id['post_id'] == $needle) $islike = 'liked';
         }
-
-        $like = 0 == $current_user->ID?'':"<a href='#' class='single-photos-slider__like ".$islike."' data-action='' data-id='".$image['post_id']."' image-id='".$image['img_id']."'>like</a>";
+        $price = $image['post_id'];
+        $like = 0 == $current_user->ID ? '' : "<a href='#' class='single-photos-slider__like " . $islike . "' data-action='' data-id='" . $image['post_id'] . "' image-id='" . $image['img_id'] . "'>like</a>";
         $title = getImgName($image);
         $list .= " <!-- single-photos-slider__item -->
-                                                <div class='single-photos-slider__item' style='background-image: url(".$image['img_image'].")'>
+                                                <div class='single-photos-slider__item' style='background-image: url(" . $image['img_image'] . ")'>
 
-                                                    ".$like."
+                                                    " . $like . "
 
                                                     <a href='#' class='single-photos-slider__zoom popup__open' data-popup='lightbox'>zoom</a>
 
                                                     <!-- single-photos-slider__info -->
                                                     <div class='single-photos-slider__info'>
                                                         <div>
-                                                            <span class='single-photos-slider__author'>".$author."</span>
-                                                            <span class='single-photos-slider__name'>".$title."</span>
+                                                            <span class='single-photos-slider__author'>" . $author . "</span>
+                                                            <span class='single-photos-slider__name'>" . $title . "</span>
                                                         </div>
                                                         <div>
-                                                            <span class='single-photos-slider__price'>5,600 €</span>
-
-                                                            <!-- single-photos-slider__sizes -->
-                                                            <div class='single-photos-slider__sizes'>
-
-                                                                <!-- single-photos-slider__sizes-selected -->
-                                                                <span class='single-photos-slider__sizes-selected'>10x90 cm</span>
-                                                                <!-- /single-photos-slider__sizes-selected -->
-
-                                                                <!-- single-photos-slider__drop -->
-                                                                <div class='single-photos-slider__drop'>
-                                                                    <a class='active' href='#'>10x90 cm</a>
-                                                                    <a href='#'>110x156 cm</a>
-                                                                    <a href='#'>250x620 cm</a>
-                                                                </div>
-                                                                <!-- /single-photos-slider__drop -->
-
-                                                                <!-- single-photos-slider__count -->
-                                                                <span class='single-photos-slider__count'>
-                                                                    [<span>5</span>/<span>3</span>]
-                                                                </span>
-                                                                <!-- /single-photos-slider__count -->
-
-                                                            </div>
-                                                            <!-- /single-photos-slider__sizes -->
+                                                            " . getSelect($image['img_list_variables']) . "
 
                                                         </div>
                                                     </div>
@@ -259,6 +283,7 @@ function setLimitedSlider($images,$islast)
     $list .= "</div>";
     return $list;
 }
+
 function get_user_likes($user_id)
 {
 

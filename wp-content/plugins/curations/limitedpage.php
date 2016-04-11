@@ -50,7 +50,7 @@
                         <h2>User categories</h2>
 
                         <select size="3" multiple class="user_categories" name="user_categories[]">
-                            <?php echo Curation_Plugin::getUserCategories($user_id);?>
+                            <?php echo Curation_Plugin::getUserCategories(0);?>
                         </select>
                     </div>
 
