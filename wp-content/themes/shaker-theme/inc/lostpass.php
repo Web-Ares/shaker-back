@@ -23,22 +23,22 @@ function pippin_change_forgot_password_form()
 
     <?php
     if (isset($_GET['password-reset']) && $_GET['password-reset'] == 'true') { ?>
-    <div class="pippin_message success">
-        <span><?php _e('Your password will be emailed', 'pippin'); ?></span>
-    </div>
-<?php } ?>
-        <!-- enter-form -->
-        <form class="enter-form" action="<?php echo $current_url; ?>" method="post">
-            <input class="site__input" type="email" name="email" placeholder="Email">
-            <input type="hidden" name="pippin_action" value="forgot-password"/>
-            <input type="hidden" name="pippin_redirect" value="<?php echo $redirect; ?>"/>
-            <!-- enter-form__send -->
-            <div class="enter-form__send enter-form__send_right">
-                <button class="btn" type="submit">Send</button>
-            </div>
-            <!-- /enter-form__send -->
-        </form>
-        <!-- enter-form -->
+        <div class="pippin_message success">
+            <span><?php _e('Your password will be emailed', 'pippin'); ?></span>
+        </div>
+    <?php } ?>
+    <!-- enter-form -->
+    <form class="enter-form" action="<?php echo $current_url; ?>" method="post">
+        <input class="site__input" type="email" name="email" placeholder="Email">
+        <input type="hidden" name="pippin_action" value="forgot-password"/>
+        <input type="hidden" name="pippin_redirect" value="<?php echo $redirect; ?>"/>
+        <!-- enter-form__send -->
+        <div class="enter-form__send enter-form__send_right">
+            <button class="btn" type="submit">Send</button>
+        </div>
+        <!-- /enter-form__send -->
+    </form>
+    <!-- enter-form -->
     <?php
     return ob_get_clean();
 }
@@ -61,8 +61,6 @@ function pippin_forgot_password()
 
         global $user_ID;
 
-        if (!is_user_logged_in())
-            return;
 
 
         $email = $_POST['email'];
@@ -78,20 +76,22 @@ function pippin_forgot_password()
             return false;
         } else {
 
-            $random_password = wp_generate_password(12, false);
-            $user = get_user_by('email', $email);
+            // retrieve all error messages, if any
+            $errors = pippin_errors()->get_error_messages();
 
-            $update_user = wp_update_user(array(
-                    'ID' => $user->ID,
-                    'user_pass' => $random_password
-                )
-            );
+            if (empty($errors)) {
+                $random_password = wp_generate_password(12, false);
+                $user = get_user_by('email', $email);
 
-            // if  update user return true then lets send user an email containing the new password
-            if ($update_user) {
+                $update_user = wp_update_user(array(
+                        'ID' => $user->ID,
+                        'user_pass' => $random_password
+                    )
+                );
+
                 $to = $email;
                 $subject = 'Your new password';
-                $sender = get_option('name');
+                $sender = 'Shaiker Weiner site';
 
                 $message = 'Your new password is: ' . $random_password;
 
@@ -103,10 +103,7 @@ function pippin_forgot_password()
                 $mail = wp_mail($to, $subject, $message, $headers);
 
                 wp_redirect(add_query_arg('password-reset', 'true', $_POST['pippin_redirect']));
-
-            } else {
-                pippin_errors()->add('oops_user', __('Oops something went wrong updating your account.', 'pippin'));
-                $errors = pippin_errors()->get_error_messages();
+                exit;
             }
 
         }
