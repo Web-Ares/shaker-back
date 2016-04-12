@@ -2,6 +2,12 @@
 /**
  * Template Name: Login Page
  */
+
+$cur_user = wp_get_current_user();
+if ($cur_user->ID != 0) {
+    wp_redirect(home_url());
+    exit;
+}
 if(isset($_POST)){
     $creds = array();
     $creds['user_login'] = $_POST['log'];

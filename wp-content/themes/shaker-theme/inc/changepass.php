@@ -121,7 +121,7 @@ if (!function_exists('pippin_show_error_messages')) {
             // Loop error codes and display errors
             foreach ($codes as $code) {
                 $message = pippin_errors()->get_error_message($code);
-                echo '<span class="pippin_error">' . $message . '</span><br/>';
+                echo '<span class="pippin_error"><strong>' . __('Error', 'rcp') . '</strong>: ' . $message . '</span><br/>';
             }
             echo '</div>';
         }

@@ -3,7 +3,6 @@
  * Template Name: Forgot Page
  */
 
-
 if(!$_REQUEST['ajax']){
     get_header();
 };

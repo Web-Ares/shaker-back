@@ -21,9 +21,10 @@ function pippin_change_forgot_password_form()
 // show any error messages after form submission
     pippin_show_error_messages(); ?>
 
-    <?php if (isset($_GET['password-reset']) && $_GET['password-reset'] == 'true') { ?>
+    <?php
+    if (isset($_GET['password-reset']) && $_GET['password-reset'] == 'true') { ?>
     <div class="pippin_message success">
-        <span><?php _e('Password changed successfully', 'rcp'); ?></span>
+        <span><?php _e('Your password will be emailed', 'pippin'); ?></span>
     </div>
 <?php } ?>
         <!-- enter-form -->
@@ -36,7 +37,6 @@ function pippin_change_forgot_password_form()
                 <button class="btn" type="submit">Send</button>
             </div>
             <!-- /enter-form__send -->
-
         </form>
         <!-- enter-form -->
     <?php
@@ -64,16 +64,51 @@ function pippin_forgot_password()
         if (!is_user_logged_in())
             return;
 
-        $user = get_userdata( $user_ID );
-        if( $user ){
-            $password = $_POST['current-pass'];
-            $hash     = $user->data->user_pass;
-            if ( !wp_check_password( $password, $hash ) ) {
-                pippin_errors()->add('password_incorrect', __('Password do not correct', 'pippin'));
-                // retrieve all error messages, if any
+
+        $email = $_POST['email'];
+
+        if (empty($email)) {
+            pippin_errors()->add('none_email', __('Enter e-mail address.', 'pippin'));
+            return false;
+        } else if (!is_email($email)) {
+            pippin_errors()->add('invalid_email', __('Invalid e-mail address.', 'pippin'));
+            return false;
+        } else if (!email_exists($email)) {
+            pippin_errors()->add('none_user', __('There is no user registered with that email address.', 'pippin'));
+            return false;
+        } else {
+
+            $random_password = wp_generate_password(12, false);
+            $user = get_user_by('email', $email);
+
+            $update_user = wp_update_user(array(
+                    'ID' => $user->ID,
+                    'user_pass' => $random_password
+                )
+            );
+
+            // if  update user return true then lets send user an email containing the new password
+            if ($update_user) {
+                $to = $email;
+                $subject = 'Your new password';
+                $sender = get_option('name');
+
+                $message = 'Your new password is: ' . $random_password;
+
+                $headers[] = 'MIME-Version: 1.0' . "\r\n";
+                $headers[] = 'Content-type: text/html; charset=utf-8' . "\r\n";
+                $headers[] = "X-Mailer: PHP \r\n";
+                $headers[] = 'From: ' . $sender . ' < ' . $email . '>' . "\r\n";
+
+                $mail = wp_mail($to, $subject, $message, $headers);
+
+                wp_redirect(add_query_arg('password-reset', 'true', $_POST['pippin_redirect']));
+
+            } else {
+                pippin_errors()->add('oops_user', __('Oops something went wrong updating your account.', 'pippin'));
                 $errors = pippin_errors()->get_error_messages();
-                return false;
             }
+
         }
 
     }
