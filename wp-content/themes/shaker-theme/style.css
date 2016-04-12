@@ -37,3 +37,18 @@ Version: 1.0
 .site__menu-nonelink:hover {
     background: #dfdfdf
 }
+
+.form-empty input{
+    border:1px solid red!important;
+}
+
+.pippin_message{
+    margin-bottom: 10px;
+    display: block;
+}
+.pippin_message.error{
+    color: red;
+}
+.pippin_message.success{
+    color: green;
+}

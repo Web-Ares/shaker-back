@@ -2,6 +2,25 @@
 /**
  * Template Name: Login Page
  */
+if(isset($_POST)){
+    $creds = array();
+    $creds['user_login'] = $_POST['log'];
+    $creds['user_password'] = $_POST['pwd'];
+    $creds['remember'] = true;
+
+    $user = wp_signon( $creds, false );
+
+    if ( is_wp_error($user) ){
+        $errors = $user->get_error_message();
+    }else{
+        nocache_headers();
+        wp_clear_auth_cookie();
+        wp_set_auth_cookie($user->ID);
+        wp_redirect('/');
+    }
+
+}
+
 if(!$_REQUEST['ajax']){
     get_header();
 };
@@ -68,15 +87,17 @@ the_post();
 
 
 						<?php
-						if ( ! is_user_logged_in() ) { // Display WordPress login form:
+
+
+                        if ( ! is_user_logged_in() ) { // Display WordPress login form:
 							$args = array(
 								'redirect' => home_url(),
 								'form_id' => 'loginform-custom',
 								'class_id' => 'enter-form',
 								'remember' => false
 							);
+                            if(!empty($errors))$args['class_id'] = 'enter-form form-empty';
 							wp_mylogin_form( $args );
-							echo $user->get_error_message();
 						} else { // If logged in:
 							wp_myloginout( home_url() ); // Display "Log Out" link.
 						}

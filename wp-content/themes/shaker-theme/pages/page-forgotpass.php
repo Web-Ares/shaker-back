@@ -1,18 +1,16 @@
 <?php
 /**
- * Template Name: Change password Page
+ * Template Name: Forgot Page
  */
 
-$cur_user = wp_get_current_user();
-if($cur_user->ID==0){ wp_redirect(home_url()); exit;}
 
-if(empty($_REQUEST['ajax'])){
+if(!$_REQUEST['ajax']){
     get_header();
 };
 the_post();
 ?>
 
-<div class="site__layout" data-href="<?php echo getPostname(get_field('next_page',$post->ID));?>"  data-scroll="false">
+<div class="site__layout" data-scroll="false">
 	<!-- site__header -->
 	<header class="site__header">
 		<!-- site__center -->
@@ -49,7 +47,7 @@ the_post();
 	<!-- /site__header -->
 
 	<!-- site__content -->
-	<div class="site__content site__content_pad-bot site__content_center full-height">
+	<div class="site__content site__content_center full-height">
 
 		<!-- site__center -->
 		<div class="site__center">
@@ -64,7 +62,7 @@ the_post();
 				<!-- site__content-text -->
 				<div class="site__content-text">
 
-					<?php echo do_shortcode('[password_form]');?>
+					<?php echo do_shortcode('[lostpassword_form]'); ?>
 
 				</div>
 				<!-- /site__content-text -->
@@ -81,7 +79,7 @@ the_post();
 </div>
 
 <?php
-if(empty($_REQUEST['ajax'])){
+if(!$_REQUEST['ajax']){
     get_footer();
 };
 ?>

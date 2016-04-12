@@ -45,6 +45,7 @@ function home_slider()
 
 function getPostname($object)
 {
+    if(!empty($object))
     return $post_name = $object->post_name;
 }
 

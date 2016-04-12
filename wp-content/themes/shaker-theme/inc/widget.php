@@ -135,4 +135,18 @@ function getSlidercontent()
     die();
 }
 
+
+add_action('wp_ajax_mylogint', 'myLogin');
+add_action('wp_ajax_nopriv_mylogin', 'myLogin');
+
+/**
+ *
+ */
+function myLogin()
+{
+    global $wpdb;
+
+    die('{"status":"error"}');
+}
+
 ?>

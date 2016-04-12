@@ -332,11 +332,11 @@ function wp_mylogin_form( $args = array() ) {
     $login_form_bottom = apply_filters( 'login_form_bottom', '', $args );
 
     $form = '
-		<form name="' . $args['form_id'] . '" id="' . $args['form_id'] . '" class="' . $args['class_id'] . '" action="' . esc_url( site_url( 'wp-login.php', 'login_post' ) ) . '" method="post">
+		<form name="' . $args['form_id'] . '" id="' . $args['form_id'] . '" class="' . $args['class_id'] . '" action="" method="post">
 			' . $login_form_top . '
 
-				<input type="text" name="log" class="site__input" placeholder="' . esc_html( $args['label_username'] ) . '" value="' . esc_attr( $args['value_username'] ) . '"/>
-				<input type="password" name="pwd" class="site__input"  placeholder="' . esc_html( $args['label_password'] ) . '" value="" />
+				<input type="text" name="log" class="site__input input_log" placeholder="' . esc_html( $args['label_username'] ) . '" value="' . esc_attr( $args['value_username'] ) . '"/>
+				<input type="password" name="pwd" class="site__input input_pass"  placeholder="' . esc_html( $args['label_password'] ) . '" value="" />
 <!-- enter-form__send -->
 							<div class="enter-form__send">
 								<a class="enter-form__forgot" href="'. wp_lostpassword_url().' "> '.__( "Lost your password?" ).'
@@ -387,4 +387,5 @@ function wp_myloginout($redirect = '', $echo = true) {
         return apply_filters( 'loginout', $link );
     }
 }
+
 ?>
