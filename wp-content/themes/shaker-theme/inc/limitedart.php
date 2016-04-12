@@ -57,7 +57,12 @@ class Limitedart
         foreach ($result as $post) {
             $cats = wp_get_object_terms($post['post_id'], $cat, $args);
             foreach ($cats as $key => $category) {
-                self::$limited_categories[$category->term_id]['title'] = $category->name;
+                $cur_slug = pll_current_language('slug');
+                if ($cur_slug == 'de') {
+                    self::$limited_categories[$category->term_id]['title'] = get_field('cat_translate', $cat.'_' . $category->term_id);
+                }else{
+                    self::$limited_categories[$category->term_id]['title'] = $category->name;
+                }
                 self::$limited_categories[$category->term_id]['id'] = $category->term_id;
             }
         }

@@ -248,4 +248,20 @@ function myplugin_registration_save($array)
 //    var_dump($userData);
 //    exit();
 //}
+
+/**
+ * Login page redirect
+ */
+function cubiq_login_redirect ($redirect_to, $url, $user) {
+
+    if ( !isset($user->errors) ) {
+        return $redirect_to;
+    }
+
+    $referer = explode("?",$_SERVER['HTTP_REFERER']);
+    wp_redirect( $referer[0] . '?failed=1');
+    exit;
+
+}
+//add_filter('login_redirect', 'cubiq_login_redirect', 10, 3);
 ?>

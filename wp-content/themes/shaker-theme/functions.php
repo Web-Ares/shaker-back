@@ -13,3 +13,4 @@ require_once( TEMPLATEINC . '/actions.php' );
 require_once( TEMPLATEINC . '/widget.php' );
 require_once( TEMPLATEINC . '/limitedart.php' );
 require_once( TEMPLATEINC . '/curations.php' );
+require_once( TEMPLATEINC . '/usercategories.php' );

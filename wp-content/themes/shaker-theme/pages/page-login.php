@@ -76,6 +76,7 @@ the_post();
 								'remember' => false
 							);
 							wp_mylogin_form( $args );
+							echo $user->get_error_message();
 						} else { // If logged in:
 							wp_myloginout( home_url() ); // Display "Log Out" link.
 						}
