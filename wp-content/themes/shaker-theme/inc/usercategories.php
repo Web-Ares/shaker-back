@@ -147,6 +147,11 @@ class UserCategories
                     $list .= '</div><div>';
                     $i = 0;
                 }
+                $cur_slug = pll_current_language('slug');
+                if ($cur_slug == 'de') {
+                    $cat->name = get_field('cat_translate', 'img_categories'.'_' . $cat->term_id);
+                }
+
                 $list .= '<!-- nice-checkbox -->
 							<div class="nice-checkbox">
 								<input type="checkbox" value="' . $cat->term_id . '" ' . self::checkInput($cat->term_id) . ' name="categor[]" id="check' . $cat->term_id . '">

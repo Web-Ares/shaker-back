@@ -23,14 +23,14 @@ function pippin_change_password_form()
 
     <?php if (isset($_GET['password-reset']) && $_GET['password-reset'] == 'true') { ?>
     <div class="pippin_message success">
-        <span><?php _e('Password changed successfully', 'rcp'); ?></span>
+        <span><?php echo pll__('Password changed successfully'); ?></span>
     </div>
 <?php } ?>
     <form id="pippin_password_form" class="enter-form" method="POST" action="<?php echo $current_url; ?>">
-        <input class="site__input" type="password" name="current-pass" placeholder="Current password">
-        <input class="site__input" type="password" name="pippin_user_newpass" placeholder="<?php _e('New Password', 'rcp'); ?>">
+        <input class="site__input" type="password" name="current-pass" placeholder="<?php echo pll__('Current password');?>">
+        <input class="site__input" type="password" name="pippin_user_newpass" placeholder="<?php echo pll__('New Password'); ?>">
         <input class="site__input" type="password" name="pippin_user_newpass_confirm"
-               placeholder="<?php _e('Password Confirm', 'rcp'); ?>">
+               placeholder="<?php echo pll__('Password Confirm'); ?>">
 
         <!-- enter-form__send -->
         <div class="enter-form__send enter-form__send_right">
@@ -38,7 +38,7 @@ function pippin_change_password_form()
             <input type="hidden" name="pippin_redirect" value="<?php echo $redirect; ?>"/>
             <input type="hidden" name="pippin_password_nonce"
                    value="<?php echo wp_create_nonce('rcp-password-nonce'); ?>"/>
-            <button class="btn" type="submit"><?php _e('Change Password', 'pippin'); ?></button>
+            <button class="btn" type="submit"><?php echo pll__('Change Password'); ?></button>
         </div>
         <!-- /enter-form__send -->
 
@@ -73,7 +73,7 @@ function pippin_reset_password()
             $password = $_POST['current-pass'];
             $hash     = $user->data->user_pass;
             if ( !wp_check_password( $password, $hash ) ) {
-                pippin_errors()->add('password_incorrect', __('Password do not correct', 'pippin'));
+                pippin_errors()->add('password_incorrect', 'Password do not correct');
                 // retrieve all error messages, if any
                 $errors = pippin_errors()->get_error_messages();
                 return false;
@@ -84,11 +84,11 @@ function pippin_reset_password()
 
             if ($_POST['pippin_user_newpass'] == '' || $_POST['pippin_user_newpass_confirm'] == '') {
                 // password(s) field empty
-                pippin_errors()->add('password_empty', __('Please enter a password, and confirm it', 'pippin'));
+                pippin_errors()->add('password_empty', 'Please enter a password, and confirm it');
             }
             if ($_POST['pippin_user_newpass'] != $_POST['pippin_user_newpass_confirm']) {
                 // passwords do not match
-                pippin_errors()->add('password_mismatch', __('Passwords do not match', 'pippin'));
+                pippin_errors()->add('password_mismatch', 'Passwords do not match');
 
             }
 
@@ -121,7 +121,7 @@ if (!function_exists('pippin_show_error_messages')) {
             // Loop error codes and display errors
             foreach ($codes as $code) {
                 $message = pippin_errors()->get_error_message($code);
-                echo '<span class="pippin_error"><strong>' . __('Error', 'rcp') . '</strong>: ' . $message . '</span><br/>';
+                echo '<span class="pippin_error">' . pll__($message) . '</span><br/>';
             }
             echo '</div>';
         }

@@ -66,14 +66,14 @@ function pippin_forgot_password()
         $email = $_POST['email'];
 
         if (empty($email)) {
-            $mess = pll__('Enter e-mail address.');
+            $mess = 'Enter e-mail address.';
             pippin_errors()->add('none_email', $mess);
             return false;
         } else if (!is_email($email)) {
-            pippin_errors()->add('invalid_email', pll__('Invalid e-mail address.'));
+            pippin_errors()->add('invalid_email', 'Invalid e-mail address.');
             return false;
         } else if (!email_exists($email)) {
-            pippin_errors()->add('none_user', pll__('There is no user registered with that email address.'));
+            pippin_errors()->add('none_user', 'There is no user registered with that email address.');
             return false;
         } else {
 
@@ -123,7 +123,7 @@ if (!function_exists('pippin_show_error_messages')) {
             // Loop error codes and display errors
             foreach ($codes as $code) {
                 $message = pippin_errors()->get_error_message($code);
-                echo '<span class="pippin_error">' . $message . '</span><br/>';
+                echo '<span class="pippin_error">' . pll__($message) . '</span><br/>';
             }
             echo '</div>';
         }

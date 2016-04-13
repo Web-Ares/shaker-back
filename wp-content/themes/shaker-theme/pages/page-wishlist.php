@@ -88,11 +88,11 @@ the_post();
 
 					<!-- personal-wish-list__send -->
 					<div class="personal-wish-list__send">
-						<button type="submit" name="set_cat" class="btn btn_2">Submit selection</button>
+						<button type="submit" name="set_cat" class="btn btn_2"><?php echo pll__("Submit selection");?></button>
 					</div>
 					<!-- personal-wish-list__send -->
 
-<!--				</form>-->
+				</form>
 
 			</div>
 			<!-- /personal-wish-list -->
