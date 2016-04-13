@@ -8,7 +8,8 @@ if ($cur_user->ID == 0 or !Curations::$isHaveImages) {
     wp_redirect(home_url());
     exit;
 }
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
+
     get_header();
 };
 the_post();
@@ -166,7 +167,8 @@ the_post();
 </div>
 <!-- /popup -->
 <?php
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
+
     get_footer();
 };
 ?>

@@ -2,7 +2,8 @@
 /**
  * Template Name: Limited Page
  */
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
+
     get_header();
 };
 the_post();
@@ -30,7 +31,7 @@ the_post();
 
                     <!--site__header-user-->
                     <div class="site__header-user">
-                        <span>Welcome Back</span>
+                        <span><?php echo pll__('Welcome back'); ?></span>
                         <span class="site__header-user-name"><?php echo $current_user->display_name; ?></span>
                     </div>
                     <!--/site__header-user-->
@@ -38,7 +39,7 @@ the_post();
                     <?php new Curations(); if(Curations::$isHaveImages){?>
                     <!--site__header-curations-->
                     <a href="<?php echo get_curation_url(); ?>" class="site__header-curations">
-                        My Personal Curations
+                        <?php echo pll__('My Personal Curations'); ?>
                     </a>
                     <!--/site__header-curations-->
                     <?php }; ?>
@@ -136,7 +137,8 @@ the_post();
 
 
 <?php
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
+
     get_footer();
 };
 ?>

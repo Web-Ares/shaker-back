@@ -7,6 +7,7 @@ $cur_user = wp_get_current_user();
 if($cur_user->ID==0){ wp_redirect(home_url()); exit;}
 
 if(empty($_REQUEST['ajax'])){
+
     get_header();
 };
 the_post();
@@ -82,6 +83,7 @@ the_post();
 
 <?php
 if(empty($_REQUEST['ajax'])){
+
     get_footer();
 };
 ?>

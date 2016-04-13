@@ -2,7 +2,8 @@
 /**
  * Template Name: Sign up Page
  */
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
+
     get_header();
 };
 the_post();
@@ -104,7 +105,8 @@ the_post();
 </div>
 
 <?php
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
+
     get_footer();
 };
 ?>

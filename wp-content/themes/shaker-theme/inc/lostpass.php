@@ -24,7 +24,7 @@ function pippin_change_forgot_password_form()
     <?php
     if (isset($_GET['password-reset']) && $_GET['password-reset'] == 'true') { ?>
         <div class="pippin_message success">
-            <span><?php _e('Your password will be emailed', 'pippin'); ?></span>
+            <span><?php echo pll__('Your password will be emailed'); ?></span>
         </div>
     <?php } ?>
     <!-- enter-form -->
@@ -34,7 +34,7 @@ function pippin_change_forgot_password_form()
         <input type="hidden" name="pippin_redirect" value="<?php echo $redirect; ?>"/>
         <!-- enter-form__send -->
         <div class="enter-form__send enter-form__send_right">
-            <button class="btn" type="submit">Send</button>
+            <button class="btn" type="submit"><?php echo pll__('Send'); ?></button>
         </div>
         <!-- /enter-form__send -->
     </form>
@@ -46,7 +46,7 @@ function pippin_change_forgot_password_form()
 // password reset form
 function pippin_forgot_password_form()
 {
-    if (is_user_logged_in()) {
+    if (!is_user_logged_in()) {
         return pippin_change_forgot_password_form();
     }
 }
@@ -66,13 +66,14 @@ function pippin_forgot_password()
         $email = $_POST['email'];
 
         if (empty($email)) {
-            pippin_errors()->add('none_email', __('Enter e-mail address.', 'pippin'));
+            $mess = pll__('Enter e-mail address.');
+            pippin_errors()->add('none_email', $mess);
             return false;
         } else if (!is_email($email)) {
-            pippin_errors()->add('invalid_email', __('Invalid e-mail address.', 'pippin'));
+            pippin_errors()->add('invalid_email', pll__('Invalid e-mail address.'));
             return false;
         } else if (!email_exists($email)) {
-            pippin_errors()->add('none_user', __('There is no user registered with that email address.', 'pippin'));
+            pippin_errors()->add('none_user', pll__('There is no user registered with that email address.'));
             return false;
         } else {
 

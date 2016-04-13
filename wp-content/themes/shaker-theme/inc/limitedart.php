@@ -27,10 +27,10 @@ class Limitedart
 
         if ($button == 'author_categories') {
             $response = array('id' => 'img_categories');
-            $response['btn'] = 'Categories';
+            $response['btn'] = pll__('Categories');
         } else {
             $response = array('id' => 'author_categories');
-            $response['btn'] = 'Signature line';
+            $response['btn'] = pll__('Signature line');
         }
 
         $response["set"] = self::getLimitedCat($user_id, $button);

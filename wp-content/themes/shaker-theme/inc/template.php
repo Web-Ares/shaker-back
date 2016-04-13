@@ -146,7 +146,7 @@ function wp_mylogin_form( $args = array() ) {
 				<input type="password" name="pwd" class="site__input input_pass"  placeholder="' . esc_html( $args['label_password'] ) . '" value="" />
 <!-- enter-form__send -->
 							<div class="enter-form__send">
-								<a class="enter-form__forgot" href="'. wp_lostpassword_url().' "> '.__( "Lost your password?" ).'
+								<a class="enter-form__forgot" href="'. wp_mylostpassword_url().' "> '.__( "Lost your password?" ).'
 								</a>
 								<button class="btn" type="submit">' . esc_attr( $args['label_log_in'] ) . '</button>
 				<input type="hidden" name="redirect_to" value="' . esc_url( $args['redirect'] ) . '" />
@@ -160,6 +160,15 @@ function wp_mylogin_form( $args = array() ) {
         echo $form;
     else
         return $form;
+}
+
+function wp_mylostpassword_url(){
+    $cur_slug = pll_current_language('slug');
+    if ($cur_slug == 'de') {
+        return '/'.getPostnameMenu(204);
+    } else {
+        return '/'.getPostnameMenu(206);
+    }
 }
 
 /**

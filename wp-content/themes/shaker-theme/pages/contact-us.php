@@ -3,14 +3,15 @@
  * Template Name: Contact us Page
  */
 
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
+
     get_header();
 };
 the_post();
 
 ?>
 
-<div class="site__layout" data-href="<?php echo getPostname(get_field('next_page', $post->ID));  ?>"  data-scroll="false">
+<div class="site__layout" data-href="<?php echo getPostname(get_field('next_page', $post->ID));  ?>" <?php if (wp_get_current_user()->exists()) {?> data-scroll="false" <?php } ?>>
     <!-- site__header -->
     <header class="site__header">
         <!-- site__center -->
@@ -142,7 +143,8 @@ the_post();
 </div>
 
 <?php
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
+
     get_footer();
 };
 ?>

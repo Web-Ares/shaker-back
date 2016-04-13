@@ -2,7 +2,7 @@
 /**
  * Template Name: Home Page
  */
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
     get_header();
 };
 the_post();
@@ -78,7 +78,7 @@ if(wp_get_current_user()->exists()){
 
 </div>
 <?php
-if (!$_REQUEST['ajax']) {
+if(empty($_REQUEST['ajax'])){
     get_footer();
 };
 ?>

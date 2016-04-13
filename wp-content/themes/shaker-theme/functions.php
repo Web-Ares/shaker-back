@@ -16,3 +16,4 @@ require_once( TEMPLATEINC . '/curations.php' );
 require_once( TEMPLATEINC . '/usercategories.php' );
 require_once( TEMPLATEINC . '/changepass.php' );
 require_once( TEMPLATEINC . '/lostpass.php' );
+require_once( TEMPLATEINC . '/translates.php' );
