@@ -229,6 +229,26 @@ class Curation_Plugin
     }
 
     /**
+     * @param $user_id
+     * @return string
+     */
+    public static function getUserSelCategories($user_id)
+    {
+        global $wpdb;
+        $list = '';
+        $sql = "SELECT category_id FROM {$wpdb->prefix}categories";
+        $sql .= " WHERE user_id =" . $user_id;
+        $result = $wpdb->get_results($sql, 'ARRAY_A');
+
+
+        foreach ($result as $post) {
+            $term = get_term( $post['category_id'], 'img_categories' );
+            echo  '<li>' . $term->name . '</li>';
+        }
+
+    }
+
+    /**
      * @param $post_id
      */
     public static function getPostCategories($post_id)
@@ -288,6 +308,8 @@ add_action('plugins_loaded', function () {
 
 
 add_action('wp_ajax_subcategories', 'getSubcategories');
+add_action('wp_ajax_nopriv_subcategories', 'getSubcategories');
+
 
 
 function getSubcategories()

@@ -2,8 +2,9 @@
 /**
  * Template Name: Curations Page
  */
+new Curations();
 $cur_user = wp_get_current_user();
-if ($cur_user->ID == 0) {
+if ($cur_user->ID == 0 or !Curations::$isHaveImages) {
     wp_redirect(home_url());
     exit;
 }
@@ -51,7 +52,7 @@ the_post();
             <!-- art -->
             <h1 class="site__title site__title_3">
                 <?php the_title();
-                    new Curations();
+
                 ?>
             </h1>
             <!-- art -->

@@ -21,7 +21,7 @@
         </select>
     </form>
 
-    <div id="curations" data-user_id="<?php echo esc_sql($_REQUEST['user_id']); ?>"
+    <div id="curations" data-user_id="<?php echo $user_id ?>"
          data-action="<?php echo admin_url('admin-ajax.php'); ?>">
         <div id="post-body" class="metabox-holder">
             <div id="post-body-content">
@@ -59,11 +59,10 @@
                 </div>
                 <div class="categories">
                     <div class="categories__item">
-                        <h2>User categories</h2>
+                        <h2>Added categories</h2>
 
                         <select size="3" multiple class="user_categories" name="user_categories[]">
                             <?php
-
                             echo Curation_Plugin::getUserCategories($user_id); ?>
                         </select>
                     </div>
@@ -74,6 +73,14 @@
                             <?php Curation_Plugin::getUserPhotos(false); ?>
                         </ul>
                     </div>
+
+                    <div class="categories__item categories__item-photos">
+                        <h2>Сategories selected by the user:</h2>
+                        <ul class="user_selectphotos_list">
+                            <?php Curation_Plugin::getUserSelCategories($user_id); ?>
+                        </ul>
+                    </div>
+
 
                 </div>
             </div>
