@@ -3,28 +3,26 @@
  * Template Name: Login Page
  */
 
-$cur_user = wp_get_current_user();
-if ($cur_user->ID != 0) {
-    wp_redirect(home_url());
-    exit;
-}
-if(isset($_POST)){
+
+
+if(isset($_POST['redirect_to'])){
     $creds = array();
     $creds['user_login'] = $_POST['log'];
     $creds['user_password'] = $_POST['pwd'];
     $creds['remember'] = true;
-
     $user = wp_signon( $creds, false );
-
     if ( is_wp_error($user) ){
         $errors = $user->get_error_message();
     }else{
-        nocache_headers();
-        wp_clear_auth_cookie();
-        wp_set_auth_cookie($user->ID);
-        wp_redirect('/');
+        var_dump('tutu');
+        wp_redirect(home_url());
     }
-
+}else{
+    $cur_user = wp_get_current_user();
+    if ($cur_user->ID != 0) {
+        wp_redirect(home_url());
+        exit;
+    }
 }
 
 if(!$_REQUEST['ajax']){
@@ -93,11 +91,23 @@ the_post();
 
 
 						<?php
+                        global $post;
 
+                        if (is_singular()) :
+                            $current_url = get_permalink($post->ID);
+                        else :
+                            $pageURL = 'http';
+                            if ($_SERVER["HTTPS"] == "on") $pageURL .= "s";
+                            $pageURL .= "://";
+                            if ($_SERVER["SERVER_PORT"] != "80") $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+                            else $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+                            $current_url = $pageURL;
+                        endif;
+                        $redirect = $current_url;
 
                         if ( ! is_user_logged_in() ) { // Display WordPress login form:
 							$args = array(
-								'redirect' => home_url(),
+								'redirect' => $current_url,
 								'form_id' => 'loginform-custom',
 								'class_id' => 'enter-form',
 								'remember' => false

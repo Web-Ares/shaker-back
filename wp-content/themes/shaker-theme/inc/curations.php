@@ -13,6 +13,7 @@ class Curations
      */
     public static $limited_categories = [];
     public static $user_id = null;
+    public static $isHaveImages = false;
 
     function __construct()
     {
@@ -20,6 +21,7 @@ class Curations
         self::$user_id = $cur_user->ID;
         self::getCategories();
     }
+
 
     public static function showCategories()
     {
@@ -39,16 +41,16 @@ class Curations
     public static function getCategories()
     {
 
-        self::$limited_categories = self::getLimitedCat(self::$user_id, 'img_categories');
+        self::$limited_categories = self::getUserCat(self::$user_id, 'img_categories');
 
+        if(count(self::$limited_categories)>0) self::$isHaveImages=true;
         return self::$limited_categories;
     }
 
-    public static function getLimitedCat($user_id, $cat)
+    public static function getUserCat($user_id, $cat)
     {
         global $wpdb;
 
-        $user_id = 0;
         $sql = "SELECT post_id FROM {$wpdb->prefix}users_curations";
         $sql .= " WHERE user_id =" . $user_id;
         $result = $wpdb->get_results($sql, 'ARRAY_A');
@@ -90,10 +92,8 @@ class Curations
 
         global $wpdb;
 
-        $user_id = 0;
-
         $sql = "SELECT post_id FROM {$wpdb->prefix}users_curations";
-        $sql .= " WHERE user_id =" . $user_id;
+        $sql .= " WHERE user_id =" . self::$user_id;
         $result = $wpdb->get_results($sql, 'ARRAY_A');
         $args = array();
         $defaults = array('fields' => 'all', 'parent' => 0);

@@ -57,8 +57,10 @@ function getPostnameMenu($object_id)
 
 function get_menu_items($menu_name)
 {
-    if( wp_get_current_user()->exists() )
+    if( wp_get_current_user()->exists() ){
+        new Curations();
         $menu_name = 'auth_menu';
+    }
     $locations = get_nav_menu_locations();
     $menu_items = wp_get_nav_menu_items($locations[$menu_name]);
     $menu_list = '<nav class="site__menu-nav site__menu-nav_ajax">';
@@ -77,6 +79,10 @@ function get_menu_items($menu_name)
 
             }else{
                 if( wp_get_current_user()->exists() ){
+                    if(($menu_item->object_id==164 or $menu_item->object_id==166) and !Curations::$isHaveImages){
+
+                        continue;
+                    }
                     $menu_list .= '<a href="' . $url . '" class="site__menu-nonelink" data-href="' . getPostnameMenu($menu_item->object_id) . '">' . $title . '</a>';
 
                 }else{

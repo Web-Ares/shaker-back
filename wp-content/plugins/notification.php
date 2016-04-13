@@ -33,8 +33,14 @@ if ( !function_exists( 'wp_new_user_notification' ) ) {
         $key_user = wp_generate_password( 20, false );
 
 
+        $user_data = array(
+            'ID' => $user_id,
+            'user_activation_key' => ''
+        );
+
         wp_set_password( $key_user, $user_id );
 
+        wp_update_user($user_data);
 
         $message  = sprintf(__('New user registration on your site %s:'), $blogname) . "\r\n\r\n";
         $message .= sprintf(__('Username: %s'), $user->user_login) . "\r\n\r\n";

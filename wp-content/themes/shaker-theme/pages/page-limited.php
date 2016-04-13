@@ -35,12 +35,13 @@ the_post();
                     </div>
                     <!--/site__header-user-->
 
+                    <?php new Curations(); if(Curations::$isHaveImages){?>
                     <!--site__header-curations-->
                     <a href="<?php echo get_curation_url(); ?>" class="site__header-curations">
                         My Personal Curations
                     </a>
                     <!--/site__header-curations-->
-
+                    <?php }; ?>
                 </div>
                 <!-- /site__header-items -->
             <?php } ?>

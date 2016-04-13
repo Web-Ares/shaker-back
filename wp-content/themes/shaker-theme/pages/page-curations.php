@@ -51,7 +51,7 @@ the_post();
             <!-- art -->
             <h1 class="site__title site__title_3">
                 <?php the_title();
-                new Curations();
+                    new Curations();
                 ?>
             </h1>
             <!-- art -->
