@@ -73,19 +73,19 @@ function add_files()
 {
     wp_deregister_style('contact-form-7');
     wp_deregister_script('jquery');
-    wp_register_script('jquery', TEMPLATEURI.'/js/vendors/jquery-2.1.4.min.js', false, '2.1.4', false);
+    wp_register_script('jquery', TEMPLATEURI . '/js/vendors/jquery-2.1.4.min.js', false, '2.1.4', false);
     wp_enqueue_script('jquery');
 
     wp_enqueue_style('style-all', get_stylesheet_uri());
 
-    wp_enqueue_style('style-swiper', TEMPLATEURI.'/css/swiper.min.css');
-    wp_enqueue_style('style-index', TEMPLATEURI.'/css/index.css');
+    wp_enqueue_style('style-swiper', TEMPLATEURI . '/css/swiper.min.css');
+    wp_enqueue_style('style-index', TEMPLATEURI . '/css/index.css');
     if (wp_get_current_user()->exists()) {
         wp_enqueue_style('style-wish', TEMPLATEURI . '/css/wish-list.css');
     }
 
 
-wp_enqueue_script('script-nicescroll', TEMPLATEURI . '/js/vendors/jquery.nicescroll.min.js', array(), '1.0.0', true);
+    wp_enqueue_script('script-nicescroll', TEMPLATEURI . '/js/vendors/jquery.nicescroll.min.js', array(), '1.0.0', true);
     wp_enqueue_script('script-swiper', TEMPLATEURI . '/js/vendors/swiper.jquery.min.js', array(), '1.0.0', true);
     wp_enqueue_script('script-history', TEMPLATEURI . '/js/vendors/history.js', array(), '1.0.0', true);
     wp_enqueue_script('script-main', TEMPLATEURI . '/js/main.min.js', array(), '1.0.0', true);
@@ -94,67 +94,6 @@ wp_enqueue_script('script-nicescroll', TEMPLATEURI . '/js/vendors/jquery.nicescr
     wp_enqueue_script('script-cform7', '/wp-content/plugins/contact-form-7/includes/js/jquery.form.min.js', array(), '1.0.0', true);
     wp_enqueue_script('script-cf7', '/wp-content/plugins/contact-form-7/includes/js/scripts.js', array(), '1.0.0', true);
 
-//    wp_enqueue_script('script-mobile-menu', get_template_directory_uri() . '/js/jquery.mobile-menu.js', array(), '1.0.0', true);
-//    wp_enqueue_script('script-liMarquee', get_template_directory_uri() . '/js/jquery.liMarquee.js', array(), '1.0.0', true);
-//    wp_enqueue_script('script-scroll-to', get_template_directory_uri() . '/js/jquery.scroll-to.js', array(), '1.0.0', true);
-//    wp_enqueue_script('script-main', get_template_directory_uri() . '/js/jquery.main.js', array(), '1.0.0', true);
-//    wp_enqueue_script('script-services-list', get_template_directory_uri() . '/js/jquery.services-list.js', array(), '1.0.0', true);
-//
-//
-//    if (is_front_page()) {
-//        wp_enqueue_style('style-index', get_template_directory_uri() . '/css/index.css');
-//    }
-//    if (is_page_template('page-templates/contact-us.php')) {
-//        wp_enqueue_style('style-about', get_template_directory_uri() . '/css/about.css');
-//        wp_enqueue_style('style-contact', get_template_directory_uri() . '/css/contact-us.css');
-//        wp_enqueue_script('script-form', get_template_directory_uri() . '/js/jquery.form.js', array(), '1.0.0', true);
-//    }
-//    if (is_page_template('page-templates/data-center.php') or is_page_template('page-templates/useful.php')) {
-//        wp_enqueue_style('style-about', get_template_directory_uri() . '/css/fonts.css');
-//        wp_enqueue_style('style-contact', get_template_directory_uri() . '/css/data-center.css');
-//    }
-//    if (is_page_template('page-templates/team.php')) {
-//        wp_enqueue_style('style-index', get_template_directory_uri() . '/css/index.css');
-//        wp_enqueue_style('style-team', get_template_directory_uri() . '/css/team.css');
-//        wp_enqueue_script('script-team', get_template_directory_uri() . '/js/jquery.team.js', array(), '1.0.0', true);
-//    }
-//    if (is_page_template('page-templates/about.php')) {
-//        wp_enqueue_style('style-about', get_template_directory_uri() . '/css/about-us.css');
-//    }
-//    if (is_page_template('page-templates/testimonials.php')) {
-//        wp_enqueue_style('style-testimonials', get_template_directory_uri() . '/css/clients.css');
-//    }
-//
-//    if (is_page_template('page-templates/services.php') or get_post_type()=='services') {
-//        wp_enqueue_style('style-about-us', get_template_directory_uri() . '/css/about-us.css');
-//        wp_enqueue_style('style-services', get_template_directory_uri() . '/css/services.css');
-//    }
-//
-//    if (is_page_template('page-templates/clients.php')) {
-//        wp_enqueue_style('style-swiper', get_template_directory_uri() . '/css/swiper.css');
-//        wp_enqueue_style('style-clients', get_template_directory_uri() . '/css/clients.css');
-//        wp_enqueue_script('script-sort', get_template_directory_uri() . '/js/jquery.sort-block.js', array(), '1.0.0', true);
-//    }
-//
-//    if (is_page_template('page-templates/cases.php')) {
-//        wp_enqueue_style('style-index', get_template_directory_uri() . '/css/index.css');
-//        wp_enqueue_style('style-swiper', get_template_directory_uri() . '/css/swiper.css');
-//        wp_enqueue_style('style-clients', get_template_directory_uri() . '/css/clients.css');
-//        wp_enqueue_style('style-case-studies', get_template_directory_uri() . '/css/case-studies.css');
-//
-//    }
-//    if (get_post_type()=='case_studies') {
-//        wp_enqueue_style('style-index', get_template_directory_uri() . '/css/index.css');
-//        wp_enqueue_style('style-services', get_template_directory_uri() . '/css/case-studies_inner.css');
-//        wp_enqueue_script('script-height', get_template_directory_uri() . '/js/jquery.case-height.js', array(), '1.0.0', true);
-//    }
-//
-//    if (is_page_template('page-login.php')) {
-//        wp_enqueue_style('style-client-login', get_template_directory_uri() . '/css/client-login.css');
-//    }
-//
-//    wp_enqueue_style('style-swiper', get_template_directory_uri() . '/css/swiper.css');
-//    wp_enqueue_style('style-liMarquee', get_template_directory_uri() . '/css/liMarquee.css');
 }
 
 
@@ -191,6 +130,7 @@ function get_login_url()
     return $permalink = get_permalink($temp_id);
     wp_reset_query();
 }
+
 function get_curation_url()
 {
     $temp_id = get_temp_ID('pages/page-curations.php');
@@ -226,42 +166,51 @@ $result = add_role('client', __(
 
     ));
 
-register_nav_menus( array(
+register_nav_menus(array(
     'main_menu' => 'menu_main',
     'auth_menu' => 'auth_menu'
-) );
+));
 
-add_action('user_register', 'myplugin_registration_save', 10, 1);
+add_action('wpcf7_before_send_mail', 'cf7_create_post', 10, 1);
 
-function myplugin_registration_save($array)
+function cf7_create_post($contact_form)
 {
+    /* Use id() method instead. */
 
-//    var_dump($array);
-//    exit();
+     $id = $contact_form->id();
 
-}
+    if ($id == 148 or $id == 5) {
 
-//
-//add_filter( 'user_meta_pre_user_register', 'user_meta_pre_user_register_function' );
-//function user_meta_pre_user_register_function( $userData )
-//{
-//    var_dump($userData);
-//    exit();
-//}
+        //Get current form
+        $wpcf7 = WPCF7_ContactForm::get_current();
 
-/**
- * Login page redirect
- */
-function cubiq_login_redirect ($redirect_to, $url, $user) {
+        // get current SUBMISSION instance
+        $submission = WPCF7_Submission::get_instance();
 
-    if ( !isset($user->errors) ) {
-        return $redirect_to;
+        // Ok go forward
+        if ($submission) {
+
+            $posted_data = $submission->get_posted_data();
+
+            setNewUser($posted_data['name'],$posted_data['email'],$posted_data['user-name']);
+            exit();
+            // get submission data
+            $data = $submission->get_posted_data();
+
+            // nothing's here... do nothing...
+            if (empty($data))
+                return;
+
+            // return current cf7 instance
+            return $wpcf7;
+        }
     }
 
-    $referer = explode("?",$_SERVER['HTTP_REFERER']);
-    wp_redirect( $referer[0] . '?failed=1');
-    exit;
-
 }
-//add_filter('login_redirect', 'cubiq_login_redirect', 10, 3);
+
+function setNewUser($name,$email,$username){
+    global $wpdb;
+    $wpdb->insert( $wpdb->prefix . 'newusers', array( 'name' => $name, 'email' => $email, 'nickname'=> $username), array( '%s', '%s', '%s' ) );
+}
+
 ?>

@@ -9,7 +9,7 @@
 
 <div class="wrap">
     <?php Curation_Plugin::setUsers();
-    $user_id = !empty(esc_sql($_REQUEST['user_id'])) ? esc_sql($_REQUEST['user_id']) : Curation_Plugin::$first_user; ?>
+    $user_id = esc_sql($_REQUEST['user_id']) ? esc_sql($_REQUEST['user_id']) : Curation_Plugin::$first_user; ?>
 
     <h2>Curation Users (<?php $user = get_user_by('id', $user_id);
         echo $user->display_name; ?>)</h2>

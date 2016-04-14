@@ -94,6 +94,13 @@ class Curation_Plugin
 
     }
 
+    /**
+     * Screen options
+     */
+    public function screen_option()
+    {
+
+    }
 
     /**
      * Plugin curations page

@@ -1,7 +1,8 @@
 <?php
+
 /*
-Plugin Name: likes
-Description: Simple and flexible favorite buttons for any post type.
+Plugin Name: New Users
+Description: New Users list.
 
 */
 
@@ -9,7 +10,7 @@ if (!class_exists('WP_List_Table')) {
     require_once(ABSPATH . 'wp-admin/includes/class-wp-list-table.php');
 }
 
-class Likes_List extends WP_List_Table
+class New_Users_List extends WP_List_Table
 {
 
     /**
@@ -19,8 +20,8 @@ class Likes_List extends WP_List_Table
     {
 
         parent::__construct([
-            'singular' => __('Like', 'sp'), //singular name of the listed records
-            'plural' => __('Likes', 'sp'), //plural name of the listed records
+            'singular' => __('New User', 'sp'), //singular name of the listed records
+            'plural' => __('New Users', 'sp'), //plural name of the listed records
             'ajax' => false //does this table support ajax?
         ]);
 
@@ -40,15 +41,7 @@ class Likes_List extends WP_List_Table
 
         global $wpdb;
 
-        $sql = "SELECT * FROM {$wpdb->prefix}likes";
-
-        if(!empty($_REQUEST['user_id']))
-        $sql .= " WHERE user_id =" . esc_sql($_REQUEST['user_id']);
-
-        if (!empty($_REQUEST['orderby'])) {
-            $sql .= ' ORDER BY ' . esc_sql($_REQUEST['orderby']);
-            $sql .= !empty($_REQUEST['order']) ? ' ' . esc_sql($_REQUEST['order']) : ' ASC';
-        }
+        $sql = "SELECT * FROM {$wpdb->prefix}newusers";
 
         $sql .= " LIMIT $per_page";
         $sql .= ' OFFSET ' . ($page_number - 1) * $per_page;
@@ -65,66 +58,22 @@ class Likes_List extends WP_List_Table
      *
      * @param int $id customer ID
      */
-    public static function delete_customer($id)
+    public static function delete_user($id)
     {
         global $wpdb;
 
         $wpdb->delete(
-            "{$wpdb->prefix}likes",
+            "{$wpdb->prefix}newusers",
             ['ID' => $id],
             ['%d']
         );
     }
 
 
-    /**
-     * Returns the count of records in the database.
-     *
-     * @return null|string
-     */
-    public static function record_count()
-    {
-        global $wpdb;
-
-        $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}likes";
-
-        if(!empty($_REQUEST['user_id']))
-        $sql .= " WHERE user_id =" . esc_sql($_REQUEST['user_id']);
-        return $wpdb->get_var($sql);
-    }
-
     /** Text displayed when no customer data is available */
     public function no_items()
     {
-        _e('No likes avaliable.', 'sp');
-    }
-
-    /**
-     * @param $id
-     * @return string
-     */
-    public function getThumbs($id)
-    {
-        $ava = get_field('img_image', $id);
-        if (count($ava) > 0) {
-            return '<img src="'.$ava.'" width="170px">';
-        }
-        return '';
-    }
-
-    /**
-     * @param $post_id
-     * @return string
-     */
-    public function getAuthor($post_id)
-    {
-        $terms = wp_get_post_terms($post_id, 'author_categories');
-        if (count($terms) > 0) {
-            return $terms[0]->name;
-
-        } else {
-            return '';
-        }
+        _e('No new users avaliable.', 'sp');
     }
 
     /**
@@ -139,16 +88,15 @@ class Likes_List extends WP_List_Table
     {
         switch ($column_name) {
             case 'id':
-                return $this->getAuthor($item['post_id']);
-            case 'image_id':
-                    return '<a href="/wp-admin/post.php?post='.$item['post_id'].'&action=edit">'.$item['image_id'].'</a>';
-            case 'date':
-                return date('Y-m-d H:i:s',$item[$column_name]);
-            case 'post_id':
-                return $this->getThumbs($item[$column_name]);
+                return $item['id'];
+            case 'name':
+                return $item['name'];
+            case 'email':
+                return $item['email'];
+            case 'nickname':
+                return $item['nickname'];
             default:
                 return true;
-//                return print_r( $item, true ); //Show the whole array for troubleshooting purposes
         }
     }
 
@@ -162,7 +110,7 @@ class Likes_List extends WP_List_Table
     function column_cb($item)
     {
         return sprintf(
-            '<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['ID']
+            '<input type="checkbox" name="bulk-delete[]" value="%s" />', $item['id']
         );
     }
 
@@ -182,7 +130,7 @@ class Likes_List extends WP_List_Table
         $title = '<strong>' . $item['name'] . '</strong>';
 
         $actions = [
-            'delete' => sprintf('<a href="?page=%s&action=%s&customer=%s&_wpnonce=%s">Delete</a>', esc_attr($_REQUEST['page']), 'delete', absint($item['ID']), $delete_nonce)
+            'delete' => sprintf('<a href="?page=%s&action=%s&new_user=%s&_wpnonce=%s">Delete</a>', esc_attr($_REQUEST['page']), 'delete', absint($item['id']), $delete_nonce)
         ];
 
         return $title . $this->row_actions($actions);
@@ -197,11 +145,10 @@ class Likes_List extends WP_List_Table
     function get_columns()
     {
         $columns = [
-//            'cb'      => '<input type="checkbox" />',
-            'image_id' => __('ID', 'sp'),
-            'id' => __('Artist', 'sp'),
-            'post_id' => __('Thumbnails', 'sp'),
-            'date' => __('Date', 'sp')
+            'id' => __('ID', 'sp'),
+            'name' => __('Name', 'sp'),
+            'email' => __('Email', 'sp'),
+            'nickname' => __('User name', 'sp')
         ];
 
         return $columns;
@@ -273,7 +220,7 @@ class Likes_List extends WP_List_Table
             if (!wp_verify_nonce($nonce, 'sp_delete_customer')) {
                 die('Go get a life script kiddies');
             } else {
-                self::delete_customer(absint($_GET['customer']));
+                self::delete_user(absint($_GET['new_user']));
 
                 wp_redirect(esc_url(add_query_arg()));
                 exit;
@@ -290,7 +237,7 @@ class Likes_List extends WP_List_Table
 
             // loop over the array of record IDs and delete them
             foreach ($delete_ids as $id) {
-                self::delete_customer($id);
+                self::delete_user($id);
 
             }
 
@@ -301,48 +248,53 @@ class Likes_List extends WP_List_Table
 
 }
 
-
-class SP_Plugin
+class New_Users_Plugin
 {
 
-    // class instance
     /**
      * @var object
      */
     static $instance;
 
-    // customer WP_List_Table object
     /**
      * @var object
      */
     public $customers_obj;
 
     /**
-     * SP_Plugin constructor.
+     * @var integer
+     */
+    static $first_user;
+
+    /**
+     * @var array
+     */
+    static $users;
+
+    /**
+     * @var array
+     */
+    static $users_categories = [];
+
+    /**
+     * @var array
+     */
+    static $users_photos = [];
+
+    /**
+     * Curation_Plugin constructor.
      */
     public function __construct()
     {
+//        add_action('init', 'register_script');
+//        function register_script()
+//        {
+//            wp_register_script('select_jquery', plugins_url('/select.js', __FILE__), array('jquery'), '2.5.1');
+//            wp_register_style('curations_style', plugins_url('/curations.css', __FILE__), false, '1.0.0', 'all');
+//        }
+
         add_filter('set-screen-option', [__CLASS__, 'set_screen'], 10, 3);
         add_action('admin_menu', [$this, 'plugin_menu']);
-    }
-
-    /**
-     * @param $user_id
-     * @param $post_id
-     * @param $image_id
-     * @param $date
-     */
-    public static function insert_like($post_id, $image_id, $date){
-        global $wpdb;
-        $current_user = wp_get_current_user();
-        if ( 0 == $current_user->ID ) {
-            die('{"result":false}');
-            // Не авторизован.
-        } else {
-            $user_id = $current_user->ID;
-            $wpdb->insert( $wpdb->prefix . 'likes', array( 'post_id' => $post_id, 'user_id' => $user_id, 'image_id'=> $image_id, 'date'=>$date), array( '%d', '%d', '%d', '%d' ) );
-
-        }
     }
 
     /**
@@ -356,88 +308,23 @@ class SP_Plugin
         return $value;
     }
 
+    /**
+     * hooks
+     */
     public function plugin_menu()
     {
 
         $hook = add_menu_page(
-            'Favorites images',
-            'Favorites images',
+            'New users',
+            'New users',
             'manage_options',
-            'likes_users',
-            [$this, 'plugin_settings_page']
+            'new_users',
+            [$this, 'plugin_new_users_page']
         );
 
         add_action("load-$hook", [$this, 'screen_option']);
 
-    }
 
-
-    public function getUsers(){
-        $users=' <option value="">Choose User</option>';
-        $args = array(
-            'blog_id'      => $GLOBALS['blog_id'],
-            'role'         => 'client',
-            'role__in'     => array(),
-            'role__not_in' => array(),
-            'meta_key'     => '',
-            'meta_value'   => '',
-            'meta_compare' => '',
-            'meta_query'   => array(),
-            'include'      => array(),
-            'exclude'      => array(),
-            'orderby'      => 'login',
-            'order'        => 'ASC',
-            'offset'       => '',
-            'search'       => '',
-            'search_columns' => array(),
-            'number'       => '',
-            'paged'        => 1,
-            'count_total'  => false,
-            'fields'       => 'all',
-            'who'          => '',
-            'has_published_posts' => null,
-            'date_query'   => array() // смотрите WP_Date_Query
-        );
-        $users_list = get_users( $args );
-        foreach( $users_list as $user ){
-
-            $users .='<option value="'.$user->ID.'">'.$user->display_name.'</option>';
-        }
-        return $users;
-    }
-
-    /**
-     * Plugin settings page
-     */
-    public function plugin_settings_page()
-    {
-        ?>
-        <div class="wrap">
-            <h2>Favorites images</h2>
-
-            <div id="poststuff">
-                <div id="post-body" class="metabox-holder">
-                    <div id="post-body-content">
-                        <form name="users" action="/wp-admin/admin.php" method="get">
-                            <input type="hidden" name="page" value="likes_users">
-                            <select name="user_id" id="" onchange="submit();">
-                               <?php echo $this->getUsers(); ?>
-                            </select>
-                        </form>
-                        <div class="meta-box-sortables ui-sortable">
-                            <form method="post">
-                                <?php
-                                $this->customers_obj->prepare_items();
-                                $this->customers_obj->display(); ?>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <br class="clear">
-                <a href="/wp-admin/users.php">Back to Users</a>
-            </div>
-        </div>
-        <?php
     }
 
     /**
@@ -448,18 +335,48 @@ class SP_Plugin
 
         $option = 'per_page';
         $args = [
-            'label' => 'Likes',
+            'label' => 'Count',
             'default' => 5,
             'option' => 'customers_per_page'
         ];
 
         add_screen_option($option, $args);
 
-        $this->customers_obj = new Likes_List();
+        $this->customers_obj = new New_Users_List();
+    }
+
+    /**
+     * Plugin new users page
+     */
+    public function plugin_new_users_page()
+    {
+        ?>
+        <div class="wrap">
+            <h2>New Users</h2>
+
+            <div id="poststuff">
+                <div id="post-body" class="metabox-holder">
+                    <div id="post-body-content">
+                        <div class="meta-box-sortables ui-sortable">
+                            <form method="post">
+                                <?php
+                                $this->customers_obj->prepare_items();
+                                $this->customers_obj->display(); ?>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <br class="clear">
+            </div>
+        </div>
+        <?php
     }
 
 
-    /** Singleton instance */
+
+    /**
+     * @return Curation_Plugin|object
+     */
     public static function get_instance()
     {
         if (!isset(self::$instance)) {
@@ -471,9 +388,11 @@ class SP_Plugin
 
 }
 
-
+/**
+ * action
+ */
 add_action('plugins_loaded', function () {
-    SP_Plugin::get_instance();
+    New_Users_Plugin::get_instance();
 });
 
 ?>
