@@ -193,7 +193,7 @@ function cf7_create_post($contact_form)
             $posted_data = $submission->get_posted_data();
 
             setNewUser($posted_data['name'],$posted_data['email'],$posted_data['user-name']);
-            exit();
+
             // get submission data
             $data = $submission->get_posted_data();
 
