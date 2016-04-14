@@ -1,8 +1,1 @@
-<?php
-get_header();
-?>
-
-<?php
-the_content();
-
-get_footer(); ?>
+<?php wp_redirect(esc_url( home_url( '/' ) )); ?>
