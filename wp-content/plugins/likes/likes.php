@@ -413,7 +413,13 @@ class SP_Plugin
     {
         ?>
         <div class="wrap">
-            <h2>Favorites images</h2>
+            <h2>Favorites images (<?php
+                if(!empty($_REQUEST['user_id'])){
+                $user = get_user_by('id', absint($_REQUEST['user_id']));
+                echo $user->display_name;
+                }else{
+                    echo 'All users';
+                } ?>)</h2>
 
             <div id="poststuff">
                 <div id="post-body" class="metabox-holder">
