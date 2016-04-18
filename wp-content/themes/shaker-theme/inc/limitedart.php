@@ -34,7 +34,6 @@ class Limitedart
         }
 
         $response["set"] = self::getLimitedCat($user_id, $button);
-
         if ($isajax == '') {
             die(json_encode($response));
         } else {
@@ -58,16 +57,16 @@ class Limitedart
             $cats = wp_get_object_terms($post['post_id'], $cat, $args);
             foreach ($cats as $key => $category) {
                 $cur_slug = pll_current_language('slug');
+                self::$limited_categories[$category->term_id]['order'] = absint($category->term_order);
                 if ($cur_slug == 'de') {
                     self::$limited_categories[$category->term_id]['title'] = get_field('cat_translate', $cat.'_' . $category->term_id);
                 }else{
                     self::$limited_categories[$category->term_id]['title'] = $category->name;
                 }
                 self::$limited_categories[$category->term_id]['id'] = $category->term_id;
+
             }
         }
-
-//        shuffle(self::$limited_categories);
 
         self::adaptiveArray();
         return self::$limited_categories;
@@ -75,9 +74,10 @@ class Limitedart
 
     public static function adaptiveArray()
     {
+        sort(self::$limited_categories);
         $temp_array = [];
         foreach (self::$limited_categories as $key => $category) {
-            $temp_array[$category['id']] = $category;
+            $temp_array[$category['order']] = $category;
         }
         self::$limited_categories = $temp_array;
     }
@@ -128,15 +128,18 @@ class Limitedart
         $args = array();
         $defaults = array('fields' => 'all', 'parent' => 0);
         $args = wp_parse_args($args, $defaults);
-
+        self::$limited_categories = [];
         foreach ($result as $post) {
             $cats = wp_get_object_terms($post['post_id'], $cat, $args);
             foreach ($cats as $key => $category) {
+                self::$limited_categories[$category->term_id]['order'] = absint($category->term_order);
                 self::$limited_categories[$category->term_id]['title'] = $category->name;
                 self::$limited_categories[$category->term_id]['id'] = $category->term_id;
                 self::$limited_categories[$category->term_id]['posts'][] = $post['post_id'];
             }
         }
+        self::adaptiveArray();
+
         return self::$limited_categories;
     }
 

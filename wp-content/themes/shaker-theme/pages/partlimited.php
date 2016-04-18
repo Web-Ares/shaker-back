@@ -19,7 +19,6 @@ $sliders = Limitedart::getCatAndPost($button);
         <?php
         $list = '';
         $current_user = wp_get_current_user();
-        $current_user = wp_get_current_user();
         if($current_user->ID!==0){
             $likes = get_user_likes($current_user->ID);
         }else{
