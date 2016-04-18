@@ -13,44 +13,7 @@ if(wp_get_current_user()->exists()){
 }
 ?>
 
-<div class="site__layout" data-href="<?php echo getPostname(get_field($page));?>">
-
-    <!-- site__header -->
-    <header class="site__header site__header_index">
-
-        <!-- site__center -->
-        <div class="site__center">
-
-            <!--logo-->
-            <h1 class="logo logo_index">
-                <img class="logo__index" src="<?php echo TEMPLATEURI;?>/img/logo-index.png" width="406" height="230" alt="Shaker Wiener">
-                <img class="logo__index-black" src="<?php echo TEMPLATEURI;?>/img/logo-index-black.png" width="406" height="230" alt="Shaker Wiener">
-            </h1>
-            <!-- /logo -->
-
-            <?php echo switch_languages();?>
-
-            <!-- site__menu-btn -->
-            <div class="site__menu">
-
-                <!-- site__menu-btn -->
-                <button class="site__menu-btn">
-                    <span></span>
-                </button>
-                <!-- /site__menu-btn -->
-
-                <!-- site__nav -->
-                <?php echo get_menu_items('main_menu'); ?>
-                <!-- /site__nav -->
-
-            </div>
-            <!-- site__menu-btn -->
-
-        </div>
-        <!-- /site__center -->
-
-    </header>
-    <!-- /site__header -->
+<div class="site__layout site_index" data-href="<?php echo getPostname(get_field($page));?>">
 
     <!-- site__content -->
     <div class="site__content full-height">

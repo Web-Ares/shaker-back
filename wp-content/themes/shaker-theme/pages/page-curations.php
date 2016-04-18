@@ -14,33 +14,6 @@ if(empty($_REQUEST['ajax'])){
 };
 the_post();
 ?>
-
-<!-- site__header -->
-<header class="site__header site__header_non-pointer">
-    <link rel="stylesheet" href="<?php echo TEMPLATEURI ?>/css/limited-art.css">
-    <!-- language -->
-    <?php echo switch_languages(); ?>
-    <!-- /language -->
-
-    <!-- site__menu-btn -->
-    <div class="site__menu site__menu_black">
-
-        <!-- site__menu-btn -->
-        <button class="site__menu-btn">
-            <span></span>
-        </button>
-        <!-- /site__menu-btn -->
-
-        <!-- site__nav -->
-        <?php echo get_menu_items('main_menu'); ?>
-        <!-- /site__nav -->
-
-    </div>
-    <!-- site__menu-btn -->
-
-</header>
-<!-- /site__header -->
-
 <!-- site__content -->
 <div class="site__content">
 
@@ -148,6 +121,14 @@ the_post();
 <!-- popup -->
 <div class="popup">
 
+    <div class="gallery-full swiper-container">
+        <div class="swiper-wrapper">
+
+        </div>
+        <div class="swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+    </div>
+
     <!-- popup__wrap -->
     <div class="popup__wrap">
 
@@ -157,6 +138,14 @@ the_post();
             <!-- popup__close -->
             <div class="popup__close"></div>
             <!-- /popup__close -->
+
+            <div class="gallery-full swiper-container">
+                <div class="swiper-wrapper">
+
+                </div>
+                <div class="swiper-button-next swiper-button-white"></div>
+                <div class="swiper-button-prev swiper-button-white"></div>
+            </div>
 
         </div>
         <!-- /popup__content -->

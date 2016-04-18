@@ -71,7 +71,7 @@ class Curations
             }
         }
 
-        shuffle(self::$limited_categories);
+//        shuffle(self::$limited_categories);
 
         self::adaptiveArray();
         return self::$limited_categories;

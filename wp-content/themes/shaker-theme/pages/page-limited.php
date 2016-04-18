@@ -2,75 +2,13 @@
 /**
  * Template Name: Limited Page
  */
-if(empty($_REQUEST['ajax'])){
+if (empty($_REQUEST['ajax'])) {
 
     get_header();
 };
 the_post();
 ?>
 <div class="site__layout" data-scroll="false">
-
-    <!-- site__header -->
-    <header class="site__header">
-
-        <!-- site__center -->
-        <div class="site__center">
-
-            <!--logo-->
-            <a href="<?php echo home_url(); ?>" class="logo">
-                <img class="logo__inner" src="<?php echo TEMPLATEURI; ?>/img/logo.png" width="208" height="90"
-                     alt="Shaker Wiener">
-            </a>
-            <!-- /logo -->
-
-            <?php if (wp_get_current_user()->exists()) {
-
-                $current_user = wp_get_current_user(); ?>
-                <!-- site__header-items -->
-                <div class="site__header-items">
-
-                    <!--site__header-user-->
-                    <div class="site__header-user">
-                        <span><?php echo pll__('Welcome back'); ?></span>
-                        <span class="site__header-user-name"><?php echo $current_user->display_name; ?></span>
-                    </div>
-                    <!--/site__header-user-->
-
-                    <?php new Curations(); if(Curations::$isHaveImages){?>
-                    <!--site__header-curations-->
-                    <a href="<?php echo get_curation_url(); ?>" class="site__header-curations">
-                        <?php echo pll__('My Personal Curations'); ?>
-                    </a>
-                    <!--/site__header-curations-->
-                    <?php }; ?>
-                </div>
-                <!-- /site__header-items -->
-            <?php } ?>
-
-            <?php echo switch_languages(); ?>
-
-            <!-- site__menu-btn -->
-            <div class="site__menu">
-
-                <!-- site__menu-btn -->
-                <button class="site__menu-btn">
-                    <span></span>
-                </button>
-                <!-- /site__menu-btn -->
-
-                <!-- site__nav -->
-                <?php echo get_menu_items('main_menu'); ?>
-                <!-- /site__nav -->
-
-            </div>
-            <!-- site__menu-btn -->
-
-        </div>
-        <!-- /site__center -->
-
-    </header>
-    <!-- /site__header -->
-
     <!-- site__content -->
     <div class="site__content">
 
@@ -123,6 +61,14 @@ the_post();
                 <div class="popup__close"></div>
                 <!-- /popup__close -->
 
+                <div class="gallery-full swiper-container">
+                    <div class="swiper-wrapper">
+
+                    </div>
+                    <div class="swiper-button-next swiper-button-white"></div>
+                    <div class="swiper-button-prev swiper-button-white"></div>
+                </div>
+
             </div>
             <!-- /popup__content -->
 
@@ -137,7 +83,7 @@ the_post();
 
 
 <?php
-if(empty($_REQUEST['ajax'])){
+if (empty($_REQUEST['ajax'])) {
 
     get_footer();
 };
