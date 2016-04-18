@@ -38,9 +38,9 @@
 
                     <div class="categories__item categories__item-photos ">
                         <h2>Photos</h2>
-                        <select size="3" multiple class="curation_photos" name="photos[]">
+                        <ul class="all-photos curation_photos">
 
-                        </select>
+                        </ul>
                         <button class="add_to_users">Add to user</button>
                     </div>
 
@@ -54,7 +54,7 @@
                         </select>
                     </div>
 
-                    <div class="categories__item categories__item-photos">
+                    <div class="categories__item categories__item-photos user-photos">
                         <h2>User Photos</h2>
                         <ul class="user_photos_list">
                          <?php Curation_Plugin::getUserPhotos(false);?>

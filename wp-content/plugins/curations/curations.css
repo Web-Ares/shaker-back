@@ -31,7 +31,8 @@
     width: 30%;
     position: relative;
 }
-.add_to_users{
+
+.add_to_users {
     width: 100%;
     margin: 10px 0;
 }
@@ -40,7 +41,8 @@
     width: 100%;
     height: 250px !important;
 }
-.user_selectphotos_list{
+
+.user_selectphotos_list {
     display: block;
     width: 100%;
     height: 245px !important;
@@ -53,6 +55,7 @@
     overflow-y: scroll;
     background-color: #efefef;
 }
+
 .user_selectphotos_list li {
     position: relative;
     font-weight: normal;
@@ -62,6 +65,7 @@
     padding: 0 2px 1px 5px;
     margin: 0;
 }
+
 .user_photos_list {
     display: block;
     width: 100%;
@@ -80,20 +84,70 @@
     background-color: #E7E7E7;
 }
 
-.user_photos_list li span {
+.user_photos_list li span.delete {
     position: absolute;
     left: 10px;
     cursor: pointer;
 }
 
-.user_photos_list li {
+li span.title {
+    position: absolute;
+    left: 180px;
+    cursor: pointer;
+    top: 34%;
+}
+
+.show_img {
+    position: absolute;
+    background-size: cover;
+    height: 80px;
+    width: 140px;
+    top: 0;
+}
+
+.user_photos_list li, .all-photos li {
     position: relative;
     font-weight: normal;
     display: block;
     white-space: pre;
     min-height: 1.2em;
     padding: 0 2px 1px 30px;
+    margin: 2px 0;
+    height: 80px;
+}
+
+.user-photos {
+    width: 40% !important;
+}
+
+.all-photos {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 245px !important;
+    vertical-align: top;
+    padding: 2px;
+    line-height: 22px;
     margin: 0;
+    top: 0;
+    border: 1px solid #E7E7E7;
+    overflow-y: scroll;
+    background-color: #fff;
+}
+
+.all-photos li span.title {
+    left: 155px;
+}
+
+.all-photos li:hover, .all-photos li.check {
+    background-color: rgba(91, 157, 217, 0.33);
+}
+/*.all-photos li.check:hover{*/
+    /*background-color: #fff;*/
+/*}*/
+.all-photos li {
+    padding-left: 10px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 782px) {

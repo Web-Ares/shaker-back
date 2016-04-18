@@ -142,42 +142,44 @@ class Curation_Plugin
     /**
      * @return string
      */
-    public static function setUsers(){
-        self::$users=' <option value="">Choose User</option>';
+    public static function setUsers()
+    {
+        self::$users = ' <option value="">Choose User</option>';
         $args = array(
-            'blog_id'      => $GLOBALS['blog_id'],
-            'role'         => 'client',
-            'role__in'     => array(),
+            'blog_id' => $GLOBALS['blog_id'],
+            'role' => 'client',
+            'role__in' => array(),
             'role__not_in' => array(),
-            'meta_key'     => '',
-            'meta_value'   => '',
+            'meta_key' => '',
+            'meta_value' => '',
             'meta_compare' => '',
-            'meta_query'   => array(),
-            'include'      => array(),
-            'exclude'      => array(),
-            'orderby'      => 'login',
-            'order'        => 'ASC',
-            'offset'       => '',
-            'search'       => '',
+            'meta_query' => array(),
+            'include' => array(),
+            'exclude' => array(),
+            'orderby' => 'login',
+            'order' => 'ASC',
+            'offset' => '',
+            'search' => '',
             'search_columns' => array(),
-            'number'       => '',
-            'paged'        => 1,
-            'count_total'  => false,
-            'fields'       => 'all',
-            'who'          => '',
+            'number' => '',
+            'paged' => 1,
+            'count_total' => false,
+            'fields' => 'all',
+            'who' => '',
             'has_published_posts' => null,
-            'date_query'   => array() // смотрите WP_Date_Query
+            'date_query' => array() // смотрите WP_Date_Query
         );
-        $users_list = get_users( $args );
-        foreach( $users_list as $user ){
-            if(empty(self::$first_user)){
+        $users_list = get_users($args);
+        foreach ($users_list as $user) {
+            if (empty(self::$first_user)) {
                 self::$first_user = $user->ID;
             }
-            self::$users .='<option value="'.$user->ID.'">'.$user->display_name.'</option>';
+            self::$users .= '<option value="' . $user->ID . '">' . $user->display_name . '</option>';
         }
     }
 
-    public static function getUsers(){
+    public static function getUsers()
+    {
         return self::$users;
     }
 
@@ -222,14 +224,15 @@ class Curation_Plugin
         $sql = "SELECT post_id FROM {$wpdb->prefix}users_curations";
         $sql .= " WHERE user_id =" . $user_id;
         $result = $wpdb->get_results($sql, 'ARRAY_A');
-        self::$users_photos=$result;
+        self::$users_photos = $result;
+
         foreach ($result as $post) {
             self::getPostCategories($post['post_id']);
         }
 
         if (self::$users_categories) {
-            foreach (self::$users_categories as $key=>$term) {
-                $list .= '<option value="' . $key . '">' . $term['title'] . ' (' . $term['count'] .')</option>';
+            foreach (self::$users_categories as $key => $term) {
+                $list .= '<option value="' . $key . '">' . $term['title'] . ' (' . $term['count'] . ')</option>';
             }
         }
         return $list;
@@ -249,8 +252,8 @@ class Curation_Plugin
 
 
         foreach ($result as $post) {
-            $term = get_term( $post['category_id'], 'img_categories' );
-            echo  '<li>' . $term->name . '</li>';
+            $term = get_term($post['category_id'], 'img_categories');
+            echo '<li>' . $term->name . '</li>';
         }
 
     }
@@ -268,13 +271,13 @@ class Curation_Plugin
         $img_cats = wp_get_object_terms($post_id, 'img_categories', $args);
         $results = array_merge($auth_cats, $img_cats);
 
-        foreach($results as $key=>$category){
-            if(!empty(self::$users_categories[$category->term_id])){
-                self::$users_categories[$category->term_id]['title']=$category->name;
-                self::$users_categories[$category->term_id]['count']+=1;
-            }else{
-                self::$users_categories[$category->term_id]['title']=$category->name;
-                self::$users_categories[$category->term_id]['count']=1;
+        foreach ($results as $key => $category) {
+            if (!empty(self::$users_categories[$category->term_id])) {
+                self::$users_categories[$category->term_id]['title'] = $category->name;
+                self::$users_categories[$category->term_id]['count'] += 1;
+            } else {
+                self::$users_categories[$category->term_id]['title'] = $category->name;
+                self::$users_categories[$category->term_id]['count'] = 1;
             }
         }
 
@@ -287,7 +290,8 @@ class Curation_Plugin
     {
         $list = '';
         foreach (self::$users_photos as $post) {
-            $list .= '<li>' . get_the_title($post['post_id']) . '<span class="delete" data-id="' . $post['post_id'] . '">X</span></li>';
+            $image_src = get_field('img_image', $post['post_id']);
+            $list .= '<li> <span class="title">' . get_the_title($post['post_id']) . '</span> <span class="delete" data-id="' . $post['post_id'] . '">X</span> <div style="background-image: url(' . $image_src . ');" class="show_img"></div></li>';
         }
         echo $list;
     }
@@ -318,7 +322,6 @@ add_action('wp_ajax_subcategories', 'getSubcategories');
 add_action('wp_ajax_nopriv_subcategories', 'getSubcategories');
 
 
-
 function getSubcategories()
 {
     $category_id = $_POST['category_id'];
@@ -343,7 +346,7 @@ function getSubcategories()
     $sql .= " WHERE user_id =" . $user_id;
     $result = $wpdb->get_results($sql, 'ARRAY_A');
     $posts = [];
-    foreach($result as $val){
+    foreach ($result as $val) {
         $posts[] = $val['post_id'];
     }
 
@@ -366,7 +369,8 @@ function getSubcategories()
             $q->the_post();
             $img_id = get_the_ID();
             $title = get_the_title();
-            $list['photos'] .= '<option value="' . $img_id . '">' . $title . '</option>';
+            $image_src = get_field('img_image', $img_id);
+            $list['photos'] .= '<li class="img_check" data-id="'.$img_id.'"><span class="title"> ' . $title . '</span> <div style="background-image: url(' . $image_src . ');" class="show_img"></div></li>';
         endwhile;
 
         wp_reset_query();
@@ -402,7 +406,8 @@ function getPhotos()
             $q->the_post();
             $img_id = get_the_ID();
             $title = get_the_title();
-            $list['photos'] .= '<option value="' . $img_id . '">' . $title . '</option>';
+            $image_src = get_field('img_image', $img_id);
+            $list['photos'] .= '<li class="img_check" data-id="'.$img_id.'"><span class="title"> ' . $title . '</span> <div style="background-image: url(' . $image_src . ');" class="show_img"></div></li>';
         endwhile;
 
         wp_reset_query();
@@ -432,7 +437,7 @@ function getAuthPhotos()
     $result = $wpdb->get_results($sql, 'ARRAY_A');
     $list = [];
     $posts = [];
-    foreach($result as $val){
+    foreach ($result as $val) {
         $posts[] = $val['post_id'];
     }
 
@@ -453,7 +458,8 @@ function getAuthPhotos()
             $q->the_post();
             $img_id = get_the_ID();
             $title = get_the_title();
-            $list['photos'] .= '<option value="' . $img_id . '">' . $title . '</option>';
+            $image_src = get_field('img_image', $img_id);
+            $list['photos'] .= '<li class="img_check" data-id="'.$img_id.'"><span class="title"> ' . $title . '</span> <div style="background-image: url(' . $image_src . ');" class="show_img"></div></li>';
         endwhile;
 
         wp_reset_query();
@@ -477,7 +483,7 @@ function getUserPhotos()
     $result = $wpdb->get_results($sql, 'ARRAY_A');
     $list = [];
     $posts = [];
-    foreach($result as $val){
+    foreach ($result as $val) {
         $posts[] = $val['post_id'];
     }
     $q = new WP_Query(array(
@@ -487,11 +493,11 @@ function getUserPhotos()
         'tax_query' => array(
             'relation' => 'OR',
             array(
-                'taxonomy' =>'author_categories',
+                'taxonomy' => 'author_categories',
                 'terms' => $category_id,
             ),
             array(
-                'taxonomy' =>'img_categories',
+                'taxonomy' => 'img_categories',
                 'terms' => $category_id,
             )
         )
@@ -502,7 +508,8 @@ function getUserPhotos()
             $q->the_post();
             $img_id = get_the_ID();
             $title = get_the_title();
-            $list['photos'] .= '<li>' . $title . '<span  class="delete" data-id="' . $img_id . '">X</span></li>';
+            $image_src = get_field('img_image', $img_id);
+            $list['photos'] .= '<li class="img_check" data-id="'.$img_id.'"><span class="title"> ' . $title . '</span> <div style="background-image: url(' . $image_src . ');" class="show_img"></div></li>';
         endwhile;
 
         wp_reset_query();
@@ -521,13 +528,13 @@ function getDeletePost()
     $user_id = (int)$_POST['user_id'];
     $category_id = (int)$_POST['category_id'];
 
-    $wpdb->query("DELETE FROM ".$wpdb->prefix."users_curations WHERE user_id={$user_id} AND post_id={$post_id}");
-
+    $wpdb->query("DELETE FROM " . $wpdb->prefix . "users_curations WHERE user_id={$user_id} AND post_id={$post_id}");
 
 
     $list['categories'] = Curation_Plugin::getUserCategories($user_id);
     foreach (Curation_Plugin::$users_photos as $post) {
-        $list['photos'][]= '<li>' . get_the_title($post['post_id']) . '<span class="delete" data-id="' . $post['post_id'] . '">X</span></li>';
+        $image_src = get_field('img_image', $post['post_id']);
+        $list['photos'][] = '<li><span class="title"> ' . get_the_title($post['post_id']) . '</span><span class="delete" data-id="' . $post['post_id'] . '">X</span> <div style="background-image: url(' . $image_src . ');" class="show_img"></div></li>';
     }
     die(json_encode($list));
 }
@@ -538,14 +545,15 @@ function addUserPhotos()
 {
     global $wpdb;
     $user_id = (int)$_POST['user_id'];
-    foreach($_REQUEST['posts'] as $val){
-        $wpdb->insert( $wpdb->prefix . 'users_curations', array( 'post_id' => $val, 'user_id' => $user_id ), array( '%d', '%d' ) );
+    foreach ($_REQUEST['posts'] as $val) {
+        $wpdb->insert($wpdb->prefix . 'users_curations', array('post_id' => $val, 'user_id' => $user_id), array('%d', '%d'));
     }
 
 
     $list['categories'] = Curation_Plugin::getUserCategories($user_id);
     foreach (Curation_Plugin::$users_photos as $post) {
-        $list['photos'][]= '<li>' . get_the_title($post['post_id']) . '<span class="delete" data-id="' . $post['post_id'] . '">X</span></li>';
+        $image_src = get_field('img_image', $post['post_id']);
+        $list['photos'][] = '<li><span class="title"> ' . get_the_title($post['post_id']) . '</span><span class="delete" data-id="' . $post['post_id'] . '">X</span> <div style="background-image: url(' . $image_src . ');" class="show_img"></div></li>';
     }
     die(json_encode($list));
 

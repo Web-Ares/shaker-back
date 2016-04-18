@@ -41,6 +41,9 @@
                     }, _showSubCategory);
                     return false;
                 });
+                $(_obj).on('click','.img_check', function () {
+                    $(this).toggleClass('check');
+                });
                 _subcategor_select.on('click', function () {
                     $(this).attr('disabled', true);
                     var select = parseInt($(this).find('option:selected').val());
@@ -61,10 +64,10 @@
                     return false;
                 });
                 _add_to_users.on('click', function () {
-                    var select = $(_photos_select).find('option:selected');
+                    var select = $(_photos_select).find('.check');
                     var posts = [];
-                    select.each(function(el){
-                        posts.push(parseInt($(this).val()));
+                    select.each(function (el) {
+                        posts.push(parseInt($(this).data('id')));
                         $(this).remove();
                     });
                     _send("json", {'user_id': _user_id, 'action': 'add_user_photos', 'posts': posts}, _addShowPhotos);
