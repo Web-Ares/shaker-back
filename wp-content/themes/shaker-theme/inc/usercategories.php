@@ -11,9 +11,9 @@ class UserCategories
     /**
      * @var array
      */
-    public static $categories = [];
-    public static $usercategories = [];
-    public static $userchecks = [];
+    public static $categories = array();
+    public static $usercategories = array();
+    public static $userchecks = array();
 
     public static $user_id = null;
     public static $user = null;
@@ -48,8 +48,8 @@ class UserCategories
 
         $wpdb->delete(
             "{$wpdb->prefix}categories",
-            ['user_id' => self::$user_id],
-            ['%d']
+            array('user_id' => self::$user_id),
+            array('%d')
         );
     }
 

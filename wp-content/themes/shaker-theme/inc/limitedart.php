@@ -11,7 +11,7 @@ class Limitedart
     /**
      * @var array
      */
-    public static $limited_categories = [];
+    public static $limited_categories = array();
 
 
     public static function getCategories($isajax = true, $button = false)
@@ -32,7 +32,6 @@ class Limitedart
             $response = array('id' => 'author_categories');
             $response['btn'] = pll__('Signature line');
         }
-
         $response["set"] = self::getLimitedCat($user_id, $button);
         if ($isajax == '') {
             die(json_encode($response));
@@ -75,9 +74,9 @@ class Limitedart
     public static function adaptiveArray()
     {
         sort(self::$limited_categories);
-        $temp_array = [];
+        $temp_array = array();
         foreach (self::$limited_categories as $key => $category) {
-            $temp_array[$category['order']] = $category;
+            $temp_array[$category['id']] = $category;
         }
         self::$limited_categories = $temp_array;
     }
@@ -128,7 +127,7 @@ class Limitedart
         $args = array();
         $defaults = array('fields' => 'all', 'parent' => 0);
         $args = wp_parse_args($args, $defaults);
-        self::$limited_categories = [];
+        self::$limited_categories = array();
         foreach ($result as $post) {
             $cats = wp_get_object_terms($post['post_id'], $cat, $args);
             foreach ($cats as $key => $category) {
@@ -167,7 +166,6 @@ class Limitedart
 
     public static function getSelect($select)
     {
-
         if (count($select) > 0) {
             $list = "<span class='single-photos-slider__price'>" . $select[0]['img_size_i_price'] . "</span>";
             $list .= "

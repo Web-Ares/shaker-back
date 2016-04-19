@@ -19,11 +19,11 @@ class New_Users_List extends WP_List_Table
     public function __construct()
     {
 
-        parent::__construct([
+        parent::__construct(array(
             'singular' => __('New User', 'sp'), //singular name of the listed records
             'plural' => __('New Users', 'sp'), //plural name of the listed records
             'ajax' => false //does this table support ajax?
-        ]);
+        ));
 
     }
 
@@ -112,10 +112,10 @@ class New_Users_List extends WP_List_Table
 
         $title = '<strong>' . $item['name'] . '</strong>';
 
-        $actions = [
+        $actions = array(
             'delete' => sprintf('<a href="?page=%s&action=%s&new_user=%s&_wpnonce=%s">Delete</a>', esc_attr($_REQUEST['page']), 'delete', absint($item['id']), $delete_nonce),
             'edit' => sprintf('<a href="?page=%s&action=%s&new_user=%s&_wpnonce=%s">Edit</a>', esc_attr($_REQUEST['page']), 'edit', absint($item['id']), $edit_nonce)
-        ];
+        );
 
         return $title . $this->row_actions($actions);
     }
@@ -128,12 +128,12 @@ class New_Users_List extends WP_List_Table
      */
     function get_columns()
     {
-        $columns = [
+        $columns = array(
             'id' => __('ID', 'sp'),
             'name' => __('Name', 'sp'),
             'email' => __('Email', 'sp'),
             'nickname' => __('User name', 'sp')
-        ];
+        );
 
         return $columns;
     }
@@ -161,9 +161,7 @@ class New_Users_List extends WP_List_Table
      */
     public function get_bulk_actions()
     {
-        $actions = [
-//            'bulk-delete' => 'Delete'
-        ];
+        $actions = array();
 
         return $actions;
     }
@@ -199,10 +197,10 @@ class New_Users_List extends WP_List_Table
         $current_page = $this->get_pagenum();
         $total_items = self::record_count();
 
-        $this->set_pagination_args([
+        $this->set_pagination_args(array(
             'total_items' => $total_items, //WE have to calculate the total number of items
             'per_page' => $per_page //WE have to determine how many items to show on a page
-        ]);
+        ));
 
         $this->items = self::get_customers($per_page, $current_page);
     }
@@ -275,12 +273,12 @@ class New_Users_Plugin
     /**
      * @var array
      */
-    static $users_categories = [];
+    static $users_categories = array();
 
     /**
      * @var array
      */
-    static $users_photos = [];
+    static $users_photos = array();
 
     static $user_id;
 
@@ -290,8 +288,8 @@ class New_Users_Plugin
     public function __construct()
     {
         add_action('init', array('New_Users_Plugin', 'check_plugin_edituser_page'));
-        add_filter('set-screen-option', [__CLASS__, 'set_screen'], 10, 3);
-        add_action('admin_menu', [$this, 'plugin_menu']);
+        add_filter('set-screen-option', array(__CLASS__, 'set_screen'), 10, 3);
+        add_action('admin_menu', array($this, 'plugin_menu'));
     }
 
     public static function check_plugin_edituser_page()
@@ -329,8 +327,8 @@ class New_Users_Plugin
 
         $wpdb->delete(
             "{$wpdb->prefix}newusers",
-            ['ID' => $id],
-            ['%d']
+            array('ID' => $id),
+            array('%d')
         );
     }
 
@@ -428,11 +426,11 @@ class New_Users_Plugin
             'New users',
             'manage_options',
             'new_users',
-            [$this, 'plugin_new_users_page']
+            array($this, 'plugin_new_users_page')
         );
 
 
-        add_action("load-$hook", [$this, 'screen_option']);
+        add_action("load-$hook", array($this, 'screen_option'));
 
 
     }
@@ -444,11 +442,11 @@ class New_Users_Plugin
     {
 
         $option = 'per_page';
-        $args = [
+        $args = array(
             'label' => 'Count',
             'default' => 5,
             'option' => 'customers_per_page'
-        ];
+        );
 
         add_screen_option($option, $args);
 
@@ -474,8 +472,6 @@ class New_Users_Plugin
      */
     public function plugin_edituser_page()
     {
-//        wp_enqueue_style('curations_style');
-//        wp_enqueue_script('select_jquery');
         require_once("new_userspage.php");
     }
 

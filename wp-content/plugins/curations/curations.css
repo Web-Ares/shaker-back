@@ -98,8 +98,11 @@ li span.title {
 }
 
 .show_img {
+    background-color: #2B2F31;
     position: absolute;
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
     height: 80px;
     width: 140px;
     top: 0;

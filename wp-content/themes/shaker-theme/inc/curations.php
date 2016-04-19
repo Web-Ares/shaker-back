@@ -11,7 +11,7 @@ class Curations
     /**
      * @var array
      */
-    public static $limited_categories = [];
+    public static $limited_categories = array();
     public static $user_id = null;
     public static $isHaveImages = false;
 
@@ -79,7 +79,7 @@ class Curations
 
     public static function adaptiveArray()
     {
-        $temp_array = [];
+        $temp_array = array();
         foreach (self::$limited_categories as $key => $category) {
             $temp_array[$category['id']] = $category;
         }

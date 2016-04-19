@@ -77,12 +77,17 @@ function add_files()
     wp_enqueue_script('jquery');
 
     wp_enqueue_style('style-all', get_stylesheet_uri());
-
-    wp_enqueue_style('style-swiper', TEMPLATEURI . '/css/swiper.min.css');
-    wp_enqueue_style('style-index', TEMPLATEURI . '/css/index.css');
-    if (wp_get_current_user()->exists()) {
-        wp_enqueue_style('style-wish', TEMPLATEURI . '/css/wish-list.css');
+    if(is_page_template('pages/page-curations.php')){
+        wp_enqueue_style('style-swiper', TEMPLATEURI . '/css/swiper.min.css');
+        wp_enqueue_style('style-limited', TEMPLATEURI . '/css/limited-art.css');
+    }else{
+        wp_enqueue_style('style-swiper', TEMPLATEURI . '/css/swiper.min.css');
+        wp_enqueue_style('style-index', TEMPLATEURI . '/css/index.css');
+        if (wp_get_current_user()->exists()) {
+            wp_enqueue_style('style-wish', TEMPLATEURI . '/css/wish-list.css');
+        }
     }
+
 
 
     wp_enqueue_script('script-nicescroll', TEMPLATEURI . '/js/vendors/jquery.nicescroll.min.js', array(), '1.0.0', true);

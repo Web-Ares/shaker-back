@@ -94,8 +94,8 @@ function setLikes()
     if ($class == 'liked') {
         $wpdb->delete(
             "{$wpdb->prefix}likes",
-            ['post_id' => $id,'user_id' => $user_id],
-            ['%d','%d']
+            array('post_id' => $id,'user_id' => $user_id),
+            array('%d','%d')
         );
         $json_data = '{
             "like": true

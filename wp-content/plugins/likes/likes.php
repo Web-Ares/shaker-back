@@ -18,11 +18,11 @@ class Likes_List extends WP_List_Table
     public function __construct()
     {
 
-        parent::__construct([
+        parent::__construct(array(
             'singular' => __('Like', 'sp'), //singular name of the listed records
             'plural' => __('Likes', 'sp'), //plural name of the listed records
             'ajax' => false //does this table support ajax?
-        ]);
+        ));
 
     }
 
@@ -71,8 +71,8 @@ class Likes_List extends WP_List_Table
 
         $wpdb->delete(
             "{$wpdb->prefix}likes",
-            ['ID' => $id],
-            ['%d']
+            array('ID' => $id),
+            array('%d')
         );
     }
 
@@ -181,9 +181,9 @@ class Likes_List extends WP_List_Table
 
         $title = '<strong>' . $item['name'] . '</strong>';
 
-        $actions = [
+        $actions = array(
             'delete' => sprintf('<a href="?page=%s&action=%s&customer=%s&_wpnonce=%s">Delete</a>', esc_attr($_REQUEST['page']), 'delete', absint($item['ID']), $delete_nonce)
-        ];
+        );
 
         return $title . $this->row_actions($actions);
     }
@@ -196,13 +196,13 @@ class Likes_List extends WP_List_Table
      */
     function get_columns()
     {
-        $columns = [
+        $columns = array(
 //            'cb'      => '<input type="checkbox" />',
             'image_id' => __('ID', 'sp'),
             'id' => __('Artist', 'sp'),
             'post_id' => __('Thumbnails', 'sp'),
             'date' => __('Date', 'sp')
-        ];
+        );
 
         return $columns;
     }
@@ -230,9 +230,7 @@ class Likes_List extends WP_List_Table
      */
     public function get_bulk_actions()
     {
-        $actions = [
-//            'bulk-delete' => 'Delete'
-        ];
+        $actions =array();
 
         return $actions;
     }
@@ -253,10 +251,10 @@ class Likes_List extends WP_List_Table
         $current_page = $this->get_pagenum();
         $total_items = self::record_count();
 
-        $this->set_pagination_args([
+        $this->set_pagination_args(array(
             'total_items' => $total_items, //WE have to calculate the total number of items
             'per_page' => $per_page //WE have to determine how many items to show on a page
-        ]);
+        ));
 
         $this->items = self::get_customers($per_page, $current_page);
     }
@@ -322,8 +320,8 @@ class SP_Plugin
      */
     public function __construct()
     {
-        add_filter('set-screen-option', [__CLASS__, 'set_screen'], 10, 3);
-        add_action('admin_menu', [$this, 'plugin_menu']);
+        add_filter('set-screen-option', array(__CLASS__, 'set_screen'), 10, 3);
+        add_action('admin_menu', array($this, 'plugin_menu'));
     }
 
     /**
@@ -364,10 +362,10 @@ class SP_Plugin
             'Favorites images',
             'manage_options',
             'likes_users',
-            [$this, 'plugin_settings_page']
+            array($this, 'plugin_settings_page')
         );
 
-        add_action("load-$hook", [$this, 'screen_option']);
+        add_action("load-$hook", array($this, 'screen_option'));
 
     }
 
@@ -453,11 +451,11 @@ class SP_Plugin
     {
 
         $option = 'per_page';
-        $args = [
+        $args = array(
             'label' => 'Likes',
             'default' => 5,
             'option' => 'customers_per_page'
-        ];
+        );
 
         add_screen_option($option, $args);
 

@@ -32,12 +32,12 @@ class Curation_Plugin
     /**
      * @var array
      */
-    static $users_categories = [];
+    static $users_categories = array();
 
     /**
      * @var array
      */
-    static $users_photos = [];
+    static $users_photos = array();
 
     /**
      * Curation_Plugin constructor.
@@ -51,8 +51,8 @@ class Curation_Plugin
             wp_register_style('curations_style', plugins_url('/curations.css', __FILE__), false, '1.0.0', 'all');
         }
 
-        add_filter('set-screen-option', [__CLASS__, 'set_screen'], 10, 3);
-        add_action('admin_menu', [$this, 'plugin_menu']);
+        add_filter('set-screen-option', array('Curation_Plugin', 'set_screen'), 10, 3);
+        add_action('admin_menu', array($this, 'plugin_menu'));
     }
 
     /**
@@ -77,20 +77,20 @@ class Curation_Plugin
             'Curation users',
             'manage_options',
             'curation_users',
-            [$this, 'plugin_curations_page']
+            array($this, 'plugin_curations_page')
         );
 
-        add_action("load-$hook", [$this, 'screen_option']);
+        add_action("load-$hook", array($this, 'screen_option'));
 
         $hook2 = add_menu_page(
             'Limited',
             'Limited users',
             'manage_options',
             'limited_users',
-            [$this, 'plugin_limited_page']
+            array($this, 'plugin_limited_page')
         );
 
-        add_action("load-$hook2", [$this, 'screen_option']);
+        add_action("load-$hook2", array($this, 'screen_option'));
 
     }
 
@@ -325,7 +325,7 @@ add_action('wp_ajax_nopriv_subcategories', 'getSubcategories');
 function getSubcategories()
 {
     $category_id = $_POST['category_id'];
-    $list = [];
+    $list = array();
     $terms = get_terms('img_categories', array(
         'order' => 'ASC',
         'parent' => $category_id
@@ -345,7 +345,7 @@ function getSubcategories()
     $sql = "SELECT post_id  FROM {$wpdb->prefix}users_curations";
     $sql .= " WHERE user_id =" . $user_id;
     $result = $wpdb->get_results($sql, 'ARRAY_A');
-    $posts = [];
+    $posts = array();
     foreach ($result as $val) {
         $posts[] = $val['post_id'];
     }
@@ -387,7 +387,7 @@ function getPhotos()
     $category_id = $_POST['category_id'];
     $taxonomy = 'img_categories';
 
-    $list = [];
+    $list = array();
     $q = new WP_Query(array(
         'posts_per_page' => -1,
         'post_type' => 'images',
@@ -425,7 +425,7 @@ function getAuthPhotos()
     $category_id = $_POST['category_id'];
     $taxonomy = 'author_categories';
 
-    $list = [];
+    $list = array();
     $list['subcategory'] = '';
 
     global $wpdb;
@@ -435,8 +435,8 @@ function getAuthPhotos()
     $sql = "SELECT post_id  FROM {$wpdb->prefix}users_curations";
     $sql .= " WHERE user_id =" . $user_id;
     $result = $wpdb->get_results($sql, 'ARRAY_A');
-    $list = [];
-    $posts = [];
+    $list = array();
+    $posts = array();
     foreach ($result as $val) {
         $posts[] = $val['post_id'];
     }
@@ -481,8 +481,8 @@ function getUserPhotos()
     $sql = "SELECT post_id  FROM {$wpdb->prefix}users_curations";
     $sql .= " WHERE user_id =" . $user_id;
     $result = $wpdb->get_results($sql, 'ARRAY_A');
-    $list = [];
-    $posts = [];
+    $list = array();
+    $posts = array();
     foreach ($result as $val) {
         $posts[] = $val['post_id'];
     }
@@ -509,7 +509,7 @@ function getUserPhotos()
             $img_id = get_the_ID();
             $title = get_the_title();
             $image_src = get_field('img_image', $img_id);
-            $list['photos'] .= '<li class="img_check" data-id="'.$img_id.'"><span class="title"> ' . $title . '</span> <div style="background-image: url(' . $image_src . ');" class="show_img"></div></li>';
+            $list['photos'] .= '<li><span class="title"> ' . get_the_title($post['post_id']) . '</span><span class="delete" data-id="' . $post['post_id'] . '">X</span> <div style="background-image: url(' . $image_src . ');" class="show_img"></div></li>';
         endwhile;
 
         wp_reset_query();

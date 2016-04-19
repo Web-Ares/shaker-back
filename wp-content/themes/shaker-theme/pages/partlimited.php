@@ -22,7 +22,7 @@ $sliders = Limitedart::getCatAndPost($button);
         if($current_user->ID!==0){
             $likes = get_user_likes($current_user->ID);
         }else{
-            $likes = [];
+            $likes = array();
         }
         foreach ($sliders as $slider) {
             $list .= "<div class='swiper-slide'>
@@ -50,7 +50,7 @@ $sliders = Limitedart::getCatAndPost($button);
             }
             if (count($vertical_array) > 0) {
                 $list .= Limitedart::setLimitedSlider(array($vertical_array[0]), true);
-                $vertical_array = [];
+                $vertical_array = array();
             }
             $list .= "</div>
                         <!-- Add Arrows -->
