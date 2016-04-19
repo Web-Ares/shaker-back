@@ -17,11 +17,12 @@
 <!-- site -->
 <div class="site site_ajax">
     <!-- site__header -->
-    <header class="site__header site__header_index">
+    <header class="site__header <?php if(is_front_page()){ echo ' site__header_index';};  if(is_page_template('pages/page-curations.php')){ echo ' site__header_non-pointer'; }?>">
 
         <!-- site__center -->
         <div class="site__center">
 
+            <?php if(!is_page_template('pages/page-curations.php')){?>
             <!--logo-->
             <a href="<?php echo home_url(); ?>" class="logo <?php if (is_front_page()) { ?> logo_index <?php }; ?>">
                 <img class="logo__index" src="<?php echo TEMPLATEURI; ?>/img/logo-index.png" width="406" height="230"
@@ -33,7 +34,31 @@
                      alt="Shaker Wiener">
             </a>
             <!-- /logo -->
+            <?php }?>
+            <?php if (wp_get_current_user()->exists() && is_page_template('pages/page-limited.php')) {
 
+                $current_user = wp_get_current_user(); ?>
+                <!-- site__header-items -->
+                <div class="site__header-items">
+
+                    <!--site__header-user-->
+                    <div class="site__header-user">
+                        <span><?php echo pll__('Welcome back'); ?></span>
+                        <span class="site__header-user-name"><?php echo $current_user->display_name; ?></span>
+                    </div>
+                    <!--/site__header-user-->
+
+                    <?php new Curations();
+                    if (Curations::$isHaveImages) { ?>
+                        <!--site__header-curations-->
+                        <a href="<?php echo get_curation_url(); ?>" class="site__header-curations">
+                            <?php echo pll__('My Personal Curations'); ?>
+                        </a>
+                        <!--/site__header-curations-->
+                    <?php }; ?>
+                </div>
+                <!-- /site__header-items -->
+            <?php } ?>
 
             <!-- language -->
             <?php echo switch_languages(); ?>
