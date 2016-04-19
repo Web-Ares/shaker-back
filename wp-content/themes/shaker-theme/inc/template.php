@@ -48,38 +48,39 @@ function document_title()
  * @param array $args {
  *     Optional. Array of options to control the form output. Default empty array.
  *
- *     @type bool   $echo           Whether to display the login form or return the form HTML code.
+ * @type bool $echo Whether to display the login form or return the form HTML code.
  *                                  Default true (echo).
- *     @type string $redirect       URL to redirect to. Must be absolute, as in "https://example.com/mypage/".
+ * @type string $redirect URL to redirect to. Must be absolute, as in "https://example.com/mypage/".
  *                                  Default is to redirect back to the request URI.
- *     @type string $form_id        ID attribute value for the form. Default 'loginform'.
- *     @type string $label_username Label for the username field. Default 'Username'.
- *     @type string $label_password Label for the password field. Default 'Password'.
- *     @type string $label_remember Label for the remember field. Default 'Remember Me'.
- *     @type string $label_log_in   Label for the submit button. Default 'Log In'.
- *     @type string $id_username    ID attribute value for the username field. Default 'user_login'.
- *     @type string $id_password    ID attribute value for the password field. Default 'user_pass'.
- *     @type string $id_remember    ID attribute value for the remember field. Default 'rememberme'.
- *     @type string $id_submit      ID attribute value for the submit button. Default 'wp-submit'.
- *     @type bool   $remember       Whether to display the "rememberme" checkbox in the form.
- *     @type string $value_username Default value for the username field. Default empty.
- *     @type bool   $value_remember Whether the "Remember Me" checkbox should be checked by default.
+ * @type string $form_id ID attribute value for the form. Default 'loginform'.
+ * @type string $label_username Label for the username field. Default 'Username'.
+ * @type string $label_password Label for the password field. Default 'Password'.
+ * @type string $label_remember Label for the remember field. Default 'Remember Me'.
+ * @type string $label_log_in Label for the submit button. Default 'Log In'.
+ * @type string $id_username ID attribute value for the username field. Default 'user_login'.
+ * @type string $id_password ID attribute value for the password field. Default 'user_pass'.
+ * @type string $id_remember ID attribute value for the remember field. Default 'rememberme'.
+ * @type string $id_submit ID attribute value for the submit button. Default 'wp-submit'.
+ * @type bool $remember Whether to display the "rememberme" checkbox in the form.
+ * @type string $value_username Default value for the username field. Default empty.
+ * @type bool $value_remember Whether the "Remember Me" checkbox should be checked by default.
  *                                  Default false (unchecked).
  *
  * }
  * @return string|void String when retrieving.
  */
-function wp_mylogin_form( $args = array() ) {
+function wp_mylogin_form($args = array())
+{
     $defaults = array(
         'echo' => true,
         // Default 'redirect' value takes the user back to the request URI.
-        'redirect' => ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+        'redirect' => (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
         'form_id' => 'loginform',
         'class_id' => 'enter-form',
-        'label_username' => __( 'Username' ),
-        'label_password' => __( 'Password' ),
-        'label_remember' => __( 'Remember Me' ),
-        'label_log_in' => __( 'Log In' ),
+        'label_username' => __('Username'),
+        'label_password' => __('Password'),
+        'label_remember' => __('Remember Me'),
+        'label_log_in' => __('Log In'),
         'id_username' => 'user_login',
         'id_password' => 'user_pass',
         'id_remember' => 'rememberme',
@@ -99,7 +100,7 @@ function wp_mylogin_form( $args = array() ) {
      *
      * @param array $defaults An array of default login form arguments.
      */
-    $args = wp_parse_args( $args, apply_filters( 'login_form_defaults', $defaults ) );
+    $args = wp_parse_args($args, apply_filters('login_form_defaults', $defaults));
 
     /**
      * Filter content to display at the top of the login form.
@@ -109,9 +110,9 @@ function wp_mylogin_form( $args = array() ) {
      * @since 3.0.0
      *
      * @param string $content Content to display. Default empty.
-     * @param array  $args    Array of login form arguments.
+     * @param array $args Array of login form arguments.
      */
-    $login_form_top = apply_filters( 'login_form_top', '', $args );
+    $login_form_top = apply_filters('login_form_top', '', $args);
 
     /**
      * Filter content to display in the middle of the login form.
@@ -122,9 +123,9 @@ function wp_mylogin_form( $args = array() ) {
      * @since 3.0.0
      *
      * @param string $content Content to display. Default empty.
-     * @param array  $args    Array of login form arguments.
+     * @param array $args Array of login form arguments.
      */
-    $login_form_middle = apply_filters( 'login_form_middle', '', $args );
+    $login_form_middle = apply_filters('login_form_middle', '', $args);
 
     /**
      * Filter content to display at the bottom of the login form.
@@ -134,40 +135,41 @@ function wp_mylogin_form( $args = array() ) {
      * @since 3.0.0
      *
      * @param string $content Content to display. Default empty.
-     * @param array  $args    Array of login form arguments.
+     * @param array $args Array of login form arguments.
      */
-    $login_form_bottom = apply_filters( 'login_form_bottom', '', $args );
+    $login_form_bottom = apply_filters('login_form_bottom', '', $args);
 
     $form = '
 		<form name="' . $args['form_id'] . '" id="' . $args['form_id'] . '" class="' . $args['class_id'] . '" action="' . $args['redirect'] . '" method="post">
 			' . $login_form_top . '
 
-				<input type="text" name="log" class="site__input input_log" placeholder="' . esc_html( $args['label_username'] ) . '" value="' . esc_attr( $args['value_username'] ) . '"/>
-				<input type="password" name="pwd" class="site__input input_pass"  placeholder="' . esc_html( $args['label_password'] ) . '" value="" />
+				<input type="text" name="log" class="site__input input_log" placeholder="' . esc_html($args['label_username']) . '" value="' . esc_attr($args['value_username']) . '"/>
+				<input type="password" name="pwd" class="site__input input_pass"  placeholder="' . esc_html($args['label_password']) . '" value="" />
 <!-- enter-form__send -->
 							<div class="enter-form__send">
-								<a class="enter-form__forgot" href="'. wp_mylostpassword_url().' "> '.__( "Lost your password?" ).'
+								<a class="enter-form__forgot" href="' . wp_mylostpassword_url() . ' "> ' . __("Lost your password?") . '
 								</a>
-								<button class="btn" type="submit">' . esc_attr( $args['label_log_in'] ) . '</button>
-				<input type="hidden" name="redirect_to" value="' . esc_url( $args['redirect'] ) . '" />
+								<button class="btn" type="submit">' . esc_attr($args['label_log_in']) . '</button>
+				<input type="hidden" name="redirect_to" value="' . esc_url($args['redirect']) . '" />
 							</div>
 							<!-- /enter-form__send -->
 
 
 		</form>';
 
-    if ( $args['echo'] )
+    if ($args['echo'])
         echo $form;
     else
         return $form;
 }
 
-function wp_mylostpassword_url(){
+function wp_mylostpassword_url()
+{
     $cur_slug = pll_current_language('slug');
     if ($cur_slug == 'de') {
-        return '/'.getPostnameMenu(204);
+        return '/' . getPostnameMenu(204);
     } else {
-        return '/'.getPostnameMenu(206);
+        return '/' . getPostnameMenu(206);
     }
 }
 
@@ -180,16 +182,17 @@ function wp_mylostpassword_url(){
  * @since 1.5.0
  *
  * @param string $redirect Optional path to redirect to on login/logout.
- * @param bool   $echo     Default to echo and not return the link.
+ * @param bool $echo Default to echo and not return the link.
  * @return string|void String when retrieving.
  */
-function wp_myloginout($redirect = '', $echo = true) {
-    if ( ! is_user_logged_in() )
-        $link = '<a class="site__content-link" href="' . esc_url( wp_login_url($redirect) ) . '">' . __('Log in') . '</a>';
+function wp_myloginout($redirect = '', $echo = true)
+{
+    if (!is_user_logged_in())
+        $link = '<a class="site__content-link" href="' . esc_url(wp_login_url($redirect)) . '">' . __('Log in') . '</a>';
     else
-        $link = '<a class="site__content-link" href="' . esc_url( wp_logout_url($redirect) ) . '">' . __('Log out') . '</a>';
+        $link = '<a class="site__content-link" href="' . esc_url(wp_logout_url($redirect)) . '">' . __('Log out') . '</a>';
 
-    if ( $echo ) {
+    if ($echo) {
         /**
          * Filter the HTML output for the Log In/Log Out link.
          *
@@ -197,11 +200,34 @@ function wp_myloginout($redirect = '', $echo = true) {
          *
          * @param string $link The HTML link content.
          */
-        echo apply_filters( 'loginout', $link );
+        echo apply_filters('loginout', $link);
     } else {
         /** This filter is documented in wp-includes/general-template.php */
-        return apply_filters( 'loginout', $link );
+        return apply_filters('loginout', $link);
     }
 }
 
+function get_header_clases()
+{
+    if (is_front_page()) {
+        echo ' site__header_index';
+    };
+
+    if (is_page_template('pages/page-curations.php')) {
+        echo ' site__header_non-pointer';
+    }
+}
+
+function getAjax(){
+    if(
+        is_page_template('pages/page-curations.php')
+        or is_page_template('pages/page-forgotpass.php')
+        or is_page_template('pages/page-wishlist.php')
+    ){
+        echo '';
+    }else{
+        echo 'site_ajax';
+    }
+
+}
 ?>

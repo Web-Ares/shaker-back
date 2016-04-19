@@ -15,9 +15,9 @@
 <div class="site__loading"></div>
 
 <!-- site -->
-<div class="site site_ajax">
+<div class="site <?php getAjax();?>">
     <!-- site__header -->
-    <header class="site__header <?php if(is_front_page()){ echo ' site__header_index';};  if(is_page_template('pages/page-curations.php')){ echo ' site__header_non-pointer'; }?>">
+    <header class="site__header <?php get_header_clases();?>">
 
         <!-- site__center -->
         <div class="site__center">

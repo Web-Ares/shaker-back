@@ -52,7 +52,7 @@ the_post();
         <div class="art__sliders">
 
             <!-- multi-photos-slider -->
-            <div class='multi-photos-slider swiper-container'>
+            <div class='multi-photos-slider swiper-container visible'>
                 <div class='swiper-wrapper'>
                     <?php
                     $list = '';
@@ -120,14 +120,6 @@ the_post();
 
 <!-- popup -->
 <div class="popup">
-
-    <div class="gallery-full swiper-container">
-        <div class="swiper-wrapper">
-
-        </div>
-        <div class="swiper-button-next swiper-button-white"></div>
-        <div class="swiper-button-prev swiper-button-white"></div>
-    </div>
 
     <!-- popup__wrap -->
     <div class="popup__wrap">
