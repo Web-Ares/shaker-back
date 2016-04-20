@@ -63,7 +63,7 @@ class Curations
             foreach ($cats as $key => $category) {
                 $cur_slug = pll_current_language('slug');
                 if ($cur_slug == 'de') {
-                    self::$limited_categories[$category->term_id]['title'] = get_field('cat_translate', $cat.'_' . $category->term_id);
+                    self::$limited_categories[$category->term_id]['title'] = !empty(get_field('cat_translate', $cat.'_' . $category->term_id))?get_field('cat_translate', $cat.'_' . $category->term_id):$category->name;
                 }else{
                     self::$limited_categories[$category->term_id]['title'] = $category->name;
                 }

@@ -58,7 +58,7 @@ class Limitedart
                 $cur_slug = pll_current_language('slug');
                 self::$limited_categories[$category->term_id]['order'] = absint($category->term_order);
                 if ($cur_slug == 'de') {
-                    self::$limited_categories[$category->term_id]['title'] = get_field('cat_translate', $cat.'_' . $category->term_id);
+                    self::$limited_categories[$category->term_id]['title'] = !empty(get_field('cat_translate', $cat.'_' . $category->term_id))?get_field('cat_translate', $cat.'_' . $category->term_id):$category->name;
                 }else{
                     self::$limited_categories[$category->term_id]['title'] = $category->name;
                 }
@@ -76,7 +76,7 @@ class Limitedart
         sort(self::$limited_categories);
         $temp_array = array();
         foreach (self::$limited_categories as $key => $category) {
-            $temp_array[$category['id']] = $category;
+            $temp_array['sdfsdf_'.$category['id']] = $category;
         }
         self::$limited_categories = $temp_array;
     }
